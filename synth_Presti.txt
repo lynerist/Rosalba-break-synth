@@ -1,0 +1,14 @@
+progetto Presti
+SYNTHINOOO
+definiamo un oscillatore in cui è possibile:
+-cambiare forma d'onda
+-cambiare il numero di bit di rappresentazione (bit crusher)
+-ADSR (envelope controller)
+-fader per il volume
+
+
+Nell'interfaccia grafica sarà compresa 
+-una tastiera virtuale
+-fader per il volume
+-type forma d'onda
+-adsr slider
