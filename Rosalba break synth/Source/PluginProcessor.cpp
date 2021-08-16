@@ -95,18 +95,15 @@ void RosalbabreaksynthAudioProcessor::changeProgramName (int index, const juce::
 //==============================================================================
 void RosalbabreaksynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    juce::dsp::ProcessSpec spec;
-    spec.maximumBlockSize = samplesPerBlock;
-    spec.sampleRate = sampleRate;
-    spec.numChannels = getTotalNumOutputChannels();
-
-    osc.prepare (spec);
-    gain.prepare(spec);
-
-    osc.setFrequency(220.0f);
-    gain.setGainLinear(0.05f);
-
     synth.setCurrentPlaybackSampleRate(sampleRate);
+
+    for (int i = 0; i < synth.getNumVoices(); i++) {
+
+        if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i))) {
+
+            voice->prepareToPlay(sampleRate, samplesPerBlock, getTotalNumOutputChannels());
+        }
+    }
 }
 
 void RosalbabreaksynthAudioProcessor::releaseResources()
@@ -147,10 +144,6 @@ void RosalbabreaksynthAudioProcessor::processBlock (juce::AudioBuffer<float>& bu
    
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
-
-    juce::dsp::AudioBlock<float> audioBlock{ buffer };  //audioBlock alias di buffer di classe AudioBlock
-    osc.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
-    gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
 
     for (int i = 0; i < synth.getNumVoices(); ++i) {
     

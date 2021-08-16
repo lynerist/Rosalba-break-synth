@@ -21,8 +21,21 @@ public:
     void stopNote(float velocity, bool allowTailOff) override;
     void controllerMoved(int controllerNumber, int newControllerValue) override;
     void pitchWheelMoved(int newPitchWheelValue) override;
+    void prepareToPlay(double sampleRate, int samplesPerBlock, int outputChannels);
     void renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override;
 
 private:
+    juce::ADSR adsr;
+    juce::ADSR::Parameters adsrParams;
+
+    //juce::dsp::Oscillator<float> osc{ [](float x) { return std::sin(x); }};                       //sine
+    //juce::dsp::Oscillator<float> osc{ [](float x) { return x/juce::MathConstants<float>::pi; }};    //saw tooth     
+    //juce::dsp::Oscillator<float> osc{ [](float x) { return x<0.0f?-1.0f:1.0f; }};                 //square
+    //juce::dsp::Oscillator<float> osc{ [](float x) { return x < 0.0f?(x / juce::MathConstants<float>::pi)+std::sin(x): juce::MathConstants<float>::pi/x-std::cos(x); } };
+    //juce::dsp::Oscillator<float> osc{ [](float x) { return x < 0.0f?(x / juce::MathConstants<float>::pi)+std::sin(x): juce::MathConstants<float>::pi/std::sin(x); } };
+    juce::dsp::Oscillator<float> osc{ [](float x) { return x < 0.0f ? (x / juce::MathConstants<float>::pi) + std::sin(x) : juce::MathConstants<float>::pi / (std::sin(x + sin(x))); } };
+    juce::dsp::Gain<float> gain;
+
+    bool isPrepared { false };
 
 };
