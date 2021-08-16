@@ -22,6 +22,8 @@ RosalbabreaksynthAudioProcessor::RosalbabreaksynthAudioProcessor()
                        )
 #endif
 {
+    synth.addSound(new SynthSound());
+    synth.addVoice(new SynthVoice());
 }
 
 RosalbabreaksynthAudioProcessor::~RosalbabreaksynthAudioProcessor()
@@ -103,6 +105,8 @@ void RosalbabreaksynthAudioProcessor::prepareToPlay (double sampleRate, int samp
 
     osc.setFrequency(220.0f);
     gain.setGainLinear(0.05f);
+
+    synth.setCurrentPlaybackSampleRate(sampleRate);
 }
 
 void RosalbabreaksynthAudioProcessor::releaseResources()
@@ -148,6 +152,15 @@ void RosalbabreaksynthAudioProcessor::processBlock (juce::AudioBuffer<float>& bu
     osc.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
 
+    for (int i = 0; i < synth.getNumVoices(); ++i) {
+    
+        if (auto voice = dynamic_cast<juce::SynthesiserVoice*>(synth.getVoice(i))) {
+
+
+        }
+    }
+
+    synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 }
                                 
 //==============================================================================
