@@ -27,6 +27,7 @@ public:
 private:
     juce::ADSR adsr;
     juce::ADSR::Parameters adsrParams;
+    juce::AudioBuffer<float> synthBuffer;
 
     //juce::dsp::Oscillator<float> osc{ [](float x) { return std::sin(x); }};                       //sine
     //juce::dsp::Oscillator<float> osc{ [](float x) { return x/juce::MathConstants<float>::pi; }};    //saw tooth     
