@@ -30,10 +30,11 @@ private:
 
     //juce::dsp::Oscillator<float> osc{ [](float x) { return std::sin(x); }};                       //sine
     //juce::dsp::Oscillator<float> osc{ [](float x) { return x/juce::MathConstants<float>::pi; }};    //saw tooth     
-    //juce::dsp::Oscillator<float> osc{ [](float x) { return x<0.0f?-1.0f:1.0f; }};                 //square
+    juce::dsp::Oscillator<float> osc{ [](float x) { return x<0.0f?-1.0f:1.0f; }};                 //square
     //juce::dsp::Oscillator<float> osc{ [](float x) { return x < 0.0f?(x / juce::MathConstants<float>::pi)+std::sin(x): juce::MathConstants<float>::pi/x-std::cos(x); } };
     //juce::dsp::Oscillator<float> osc{ [](float x) { return x < 0.0f?(x / juce::MathConstants<float>::pi)+std::sin(x): juce::MathConstants<float>::pi/std::sin(x); } };
-    juce::dsp::Oscillator<float> osc{ [](float x) { return x < 0.0f ? (x / juce::MathConstants<float>::pi) + std::sin(x) : juce::MathConstants<float>::pi / (std::sin(x + sin(x))); } };
+    //juce::dsp::Oscillator<float> osc{ [](float x) { return x < 0.0f ? (x / juce::MathConstants<float>::pi) + std::sin(x) : juce::MathConstants<float>::pi / (std::sin(x + sin(x))); } };
+    
     juce::dsp::Gain<float> gain;
 
     bool isPrepared { false };
