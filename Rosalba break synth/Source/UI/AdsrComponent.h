@@ -25,5 +25,12 @@ public:
     void resized() override;
 
 private:
+    void setSliderParams(juce::Slider& slider);
+
+    juce::Slider attackSlider;
+    juce::Slider decaySlider;
+    juce::Slider sustainSlider;
+    juce::Slider releaseSlider;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AdsrComponent)
 };

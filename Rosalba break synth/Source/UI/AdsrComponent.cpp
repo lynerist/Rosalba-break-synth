@@ -14,9 +14,15 @@
 //==============================================================================
 AdsrComponent::AdsrComponent()
 {
-    // In your constructor, you should add any child components, and
-    // initialise any special settings that your component needs.
+    attackAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "ATTACK", attackSlider);
+    decayAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "DECAY", decaySlider);
+    sustainAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "SUSTAIN", sustainSlider);
+    releaseAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "RELEASE", releaseSlider);
 
+    setSliderParams(attackSlider);
+    setSliderParams(decaySlider);
+    setSliderParams(sustainSlider);
+    setSliderParams(releaseSlider);
 }
 
 AdsrComponent::~AdsrComponent()
@@ -25,27 +31,27 @@ AdsrComponent::~AdsrComponent()
 
 void AdsrComponent::paint (juce::Graphics& g)
 {
-    /* This demo code just fills the component's background and
-       draws some placeholder text to get you started.
-
-       You should replace everything in this method with your own
-       drawing code..
-    */
-
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));   // clear the background
-
-    g.setColour (juce::Colours::grey);
-    g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
-
-    g.setColour (juce::Colours::white);
-    g.setFont (14.0f);
-    g.drawText ("AdsrComponent", getLocalBounds(),
-                juce::Justification::centred, true);   // draw some placeholder text
+    g.fillAll(juce::Colours::black);
 }
 
 void AdsrComponent::resized()
 {
-    // This method is where you should set the bounds of any child
-    // components that your component contains..
+    const auto bounds = getLocalBounds().reduced(10);
+    const auto padding = 10;
+    const auto sliderWidth = bounds.getWidth() / 4 - padding;
+    const auto sliderHeight = bounds.getWidth() / 4 - padding;
+    const auto sliderStartX = 0;
+    const auto sliderStartY = bounds.getHeight() / 2 - (sliderHeight / 2);
 
+    attackSlider.setBounds(sliderStartX, sliderStartY, sliderWidth, sliderHeight);
+    decaySlider.setBounds(attackSlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
+    sustainSlider.setBounds(decaySlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
+    releaseSlider.setBounds(sustainSlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
+}
+
+void AdsrComponent::setSliderParams(juce::Slider& slider) {
+
+    slider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
+    slider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
+    addAndMakeVisible(slider);
 }

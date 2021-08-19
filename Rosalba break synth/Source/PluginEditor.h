@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "UI/AdsrComponent.h"
 
 //==============================================================================
 /**
@@ -27,10 +28,8 @@ public:
 private:
     void setSliderParams(juce::Slider& slider);
 
-    juce::Slider attackSlider;
-    juce::Slider decaySlider;
-    juce::Slider sustainSlider;
-    juce::Slider releaseSlider;
+    AdsrComponent adsr;
+    
     juce::ComboBox oscSelector;
 
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> attackAttachment;
