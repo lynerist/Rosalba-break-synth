@@ -147,15 +147,16 @@ void RosalbabreaksynthAudioProcessor::processBlock (juce::AudioBuffer<float>& bu
 
     for (int i = 0; i < synth.getNumVoices(); ++i) {
     
-        if (auto voice = dynamic_cast<juce::SynthesiserVoice*>(synth.getVoice(i))) {
+        if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i))) {
 
+            auto& attack = *apvts.getRawParameterValue("ATTACK");
+            auto& decay = *apvts.getRawParameterValue("DECAY");
+            auto& sustain = *apvts.getRawParameterValue("SUSTAIN");
+            auto& release = *apvts.getRawParameterValue("RELEASE");
 
+            voice->updateADSR(attack.load(), decay.load(), sustain.load(), release.load());
         }
     }
-
-    for (const juce::MidiMessageMetadata metadata : midiMessages)
-        if (metadata.numBytes == 3)
-            juce::Logger::writeToLog("Timestamp: " + juce::String(metadata.getMessage().getTimeStamp()));
 
     synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 }
