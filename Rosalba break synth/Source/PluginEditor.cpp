@@ -11,12 +11,13 @@
 
 //==============================================================================
 RosalbabreaksynthAudioProcessorEditor::RosalbabreaksynthAudioProcessorEditor (RosalbabreaksynthAudioProcessor& p)
-    : AudioProcessorEditor (&p), audioProcessor (p)
+    : AudioProcessorEditor (&p), audioProcessor (p), adsr(audioProcessor.apvts)
 {
     setSize (400, 300);
     
     oscSelAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.apvts, "OSC", oscSelector);
 
+    addAndMakeVisible(adsr);
 }
 
 RosalbabreaksynthAudioProcessorEditor::~RosalbabreaksynthAudioProcessorEditor()
@@ -31,5 +32,5 @@ void RosalbabreaksynthAudioProcessorEditor::paint (juce::Graphics& g)
 
 void RosalbabreaksynthAudioProcessorEditor::resized()
 {
-    
+    adsr.setBounds(getWidth() / 2, 0, getWidth() / 2, getHeight());
 }
