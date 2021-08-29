@@ -207,7 +207,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout RosalbabreaksynthAudioProces
     params.push_back(std::make_unique<juce::AudioParameterChoice>("OSC1WAVETYPE", "Osc 1 Wave Type", juce::StringArray{ "Sine", "Saw", "Square", "Plus" }, 0));
     
     //GAIN
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("GAIN", "Gain", juce::NormalisableRange<float>{0.01f, 1.5f}, 0.5f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("GAIN", "Gain", juce::NormalisableRange<float>{0.0f, 1.0f}, 0.5f));
 
     //ADSR
     params.push_back(std::make_unique<juce::AudioParameterFloat>("ATTACK", "Attack", juce::NormalisableRange<float>{0.1f, 1.0f}, 0.1f));
