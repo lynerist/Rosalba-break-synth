@@ -10,6 +10,12 @@
 
 #include "OscData.h"
 
+OscData::OscData() {
+
+
+    Oscillator();
+}
+
 void OscData::prepareToPlay(juce::dsp::ProcessSpec& spec) {
 
     prepare(spec);
@@ -44,4 +50,10 @@ void OscData::setWaveFrequency(const int midiNoteNumber) {
 void OscData::getNextAudioBlock(juce::dsp::AudioBlock<float>& block) {
 
     process(juce::dsp::ProcessContextReplacing<float>(block));
+}
+
+
+void OscData::setOctave(const int choice) {
+
+    shiftOctave = (1 / 4) * exp2(choice);
 }

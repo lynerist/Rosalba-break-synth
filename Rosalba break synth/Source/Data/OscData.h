@@ -12,6 +12,7 @@
 #include <JuceHeader.h>
 
 class OscData : public juce::dsp::Oscillator<float> {
+    OscData();
 
 public:
     void prepareToPlay(juce::dsp::ProcessSpec& spec);
@@ -19,6 +20,8 @@ public:
     void setWaveFrequency(const int midiNoteNumber);
     void getNextAudioBlock(juce::dsp::AudioBlock<float>& block);
 
-private:
+    void setOctave(const int choice);
 
+private:
+    float shiftOctave;
 };
