@@ -153,6 +153,9 @@ void RosalbabreaksynthAudioProcessor::processBlock (juce::AudioBuffer<float>& bu
 
             auto& oscWaveChoice = *apvts.getRawParameterValue("OSC1WAVETYPE");
 
+            auto& oscOctaveChoice = *apvts.getRawParameterValue("OCTAVE1"); //PROVA
+
+
             auto& gain = *apvts.getRawParameterValue("GAIN");
 
             auto& attack = *apvts.getRawParameterValue("ATTACK");
@@ -163,6 +166,8 @@ void RosalbabreaksynthAudioProcessor::processBlock (juce::AudioBuffer<float>& bu
 
             voice->update(attack.load(), decay.load(), sustain.load(), release.load(), gain.load());
             voice->getOscillator().setWaveType(oscWaveChoice);
+            voice->getOscillator().setOctave(oscOctaveChoice);    //prova
+            
         }
     }
 
@@ -207,6 +212,10 @@ juce::AudioProcessorValueTreeState::ParameterLayout RosalbabreaksynthAudioProces
 
     //OSC wave type select
     params.push_back(std::make_unique<juce::AudioParameterChoice>("OSC1WAVETYPE", "Osc 1 Wave Type", juce::StringArray{ "Sine", "Saw", "Square", "Plus" }, 0));
+    
+    // PROVA
+    params.push_back(std::make_unique<juce::AudioParameterChoice>("OCTAVE1", "octave", juce::StringArray{ "-2", "-1", "0", "+1", "+2"}, 2));
+
     
     //GAIN
     params.push_back(std::make_unique<juce::AudioParameterFloat>("GAIN", "Gain", juce::NormalisableRange<float>{0.0f, 1.0f}, 0.5f));
