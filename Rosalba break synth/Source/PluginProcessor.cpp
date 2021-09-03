@@ -23,8 +23,8 @@ RosalbabreaksynthAudioProcessor::RosalbabreaksynthAudioProcessor()
 #endif
 {
     synth.addSound(new SynthSound());
-    synth.addSound(new SynthSound());
-    synth.addVoice(new SynthVoice());
+ //   synth.addSound(new SynthSound());
+ //   synth.addVoice(new SynthVoice());
     synth.addVoice(new SynthVoice());
 }
 

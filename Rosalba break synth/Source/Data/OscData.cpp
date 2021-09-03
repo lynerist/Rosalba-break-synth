@@ -11,8 +11,7 @@
 #include "OscData.h"
 
 OscData::OscData() {
-
-
+    setOctave(DEFAULTOCTAVE);
     Oscillator();
 }
 
@@ -25,16 +24,16 @@ void OscData::setWaveType(const int choice) {
     
     switch (choice) {
     case 0: //sine wave
-        initialise([](float x) {return std::sin(x); });
+        initialise([so=shiftOctave](float x) {return std::sin(x*so); });
         break;
     case 1: //saw tooth
-        initialise([](float x) { return x / juce::MathConstants<float>::pi; });
+        initialise([so = shiftOctave](float x) { return x*so / PI; });
         break;
     case 2: //square
-        initialise([](float x) { return x < 0.0f ? -1.0f : 1.0f; });
+        initialise([so = shiftOctave](float x) { return x*so < 0.0f ? -1.0f : 1.0f; });
         break;
     case 3: //plus
-        initialise([](float x) { return x < 0.0f ? (x / juce::MathConstants<float>::pi) + std::sin(x) : juce::MathConstants<float>::pi / x - std::cos(x); });
+        initialise([so = shiftOctave](float x) { return x*so < 0.0f ? ((x*so) / PI) + std::sin(x*so) : PI / (x*so) - std::cos(x*so); });
         break;
     default:
         jassertfalse; 
