@@ -26,5 +26,5 @@ public:
     void setOctave(const int choice);
 
 private:
-    float shiftOctave;
+    double shiftOctave;
 };

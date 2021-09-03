@@ -10,9 +10,9 @@
 
 #include "OscData.h"
 
-OscData::OscData() {
+OscData::OscData()
+: Oscillator() {
     setOctave(DEFAULTOCTAVE);
-    Oscillator();
 }
 
 void OscData::prepareToPlay(juce::dsp::ProcessSpec& spec) {
@@ -24,16 +24,16 @@ void OscData::setWaveType(const int choice) {
     
     switch (choice) {
     case 0: //sine wave
-        initialise([so=shiftOctave](float x) {return std::sin(x*so); });
+        initialise([](float x) {return std::sin(x); });
         break;
     case 1: //saw tooth
-        initialise([so = shiftOctave](float x) { return x*so / PI; });
+        initialise([](float x) { return x / PI; });
         break;
     case 2: //square
-        initialise([so = shiftOctave](float x) { return x*so < 0.0f ? -1.0f : 1.0f; });
+        initialise([](float x) { return x < 0.0f ? -1.0f : 1.0f; });
         break;
     case 3: //plus
-        initialise([so = shiftOctave](float x) { return x*so < 0.0f ? ((x*so) / PI) + std::sin(x*so) : PI / (x*so) - std::cos(x*so); });
+        initialise([](float x) { return x < 0.0f ? (x / PI) + std::sin(x) : PI / x - std::cos(x); });
         break;
     default:
         jassertfalse; 
@@ -42,8 +42,7 @@ void OscData::setWaveType(const int choice) {
 }
 
 void OscData::setWaveFrequency(const int midiNoteNumber) {
-
-    setFrequency(juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber));
+    setFrequency(juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber) * (double)shiftOctave);
 }
 
 void OscData::getNextAudioBlock(juce::dsp::AudioBlock<float>& block) {
@@ -53,6 +52,5 @@ void OscData::getNextAudioBlock(juce::dsp::AudioBlock<float>& block) {
 
 
 void OscData::setOctave(const int choice) {
-
-    shiftOctave = (1 / 4) * exp2(choice);
+    shiftOctave = exp2(choice - 2 -1) ; // 2^(choice-2) = 1/4 * 2^choice (-1 serve a correggere l'ottava ottenendo A4 = 440Hz)
 }
