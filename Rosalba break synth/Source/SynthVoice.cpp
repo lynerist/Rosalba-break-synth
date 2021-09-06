@@ -83,7 +83,12 @@ void SynthVoice::renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int sta
 
     adsr.applyEnvelopeToBuffer(synthBuffer, 0, synthBuffer.getNumSamples());
 
+    int a = exp2(4);
+
     for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel) {
+        for (int sample = 0; sample < synthBuffer.getNumSamples(); sample++) {
+            synthBuffer.setSample(channel, sample, round((synthBuffer.getSample(channel, sample)*a))/a);
+        }
 
         outputBuffer.addFrom(channel, startSample, synthBuffer, channel, 0, numSamples);
 
