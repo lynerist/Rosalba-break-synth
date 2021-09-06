@@ -23,8 +23,6 @@ RosalbabreaksynthAudioProcessor::RosalbabreaksynthAudioProcessor()
 #endif
 {
     synth.addSound(new SynthSound());
- //   synth.addSound(new SynthSound());
- //   synth.addVoice(new SynthVoice());
     synth.addVoice(new SynthVoice());
 }
 
@@ -150,23 +148,27 @@ void RosalbabreaksynthAudioProcessor::processBlock (juce::AudioBuffer<float>& bu
     for (int i = 0; i < synth.getNumVoices(); ++i) {
     
         if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i))) {
+            //Oscillator 1
+            auto& osc1WaveChoice = *apvts.getRawParameterValue("OSC1WAVETYPE");
+            
+            //Oscillator 2
+            auto& osc2WaveChoice = *apvts.getRawParameterValue("OSC2WAVETYPE");
+            auto& osc2OctaveChoice = *apvts.getRawParameterValue("OSC2OCTAVE");
 
-            auto& oscWaveChoice = *apvts.getRawParameterValue("OSC1WAVETYPE");
-
-            auto& oscOctaveChoice = *apvts.getRawParameterValue("OCTAVE1"); //PROVA
-
-
+            //Gain presence
             auto& gain = *apvts.getRawParameterValue("GAIN");
+            auto& presence = *apvts.getRawParameterValue("PRESENCE");
 
+            //ADSR
             auto& attack = *apvts.getRawParameterValue("ATTACK");
             auto& decay = *apvts.getRawParameterValue("DECAY");
             auto& sustain = *apvts.getRawParameterValue("SUSTAIN");
             auto& release = *apvts.getRawParameterValue("RELEASE");
             
-
-            voice->update(attack.load(), decay.load(), sustain.load(), release.load(), gain.load());
-            voice->getOscillator().setWaveType(oscWaveChoice);
-            voice->getOscillator().setOctave(oscOctaveChoice);    //prova
+            voice->update(attack.load(), decay.load(), sustain.load(), release.load(), gain.load(), presence.load());
+            voice->getOscillator(1).setWaveType(osc1WaveChoice);
+            voice->getOscillator(2).setWaveType(osc2WaveChoice);
+            voice->getOscillator(2).setOctave(osc2OctaveChoice);
             
         }
     }
@@ -210,15 +212,17 @@ juce::AudioProcessorValueTreeState::ParameterLayout RosalbabreaksynthAudioProces
 
     std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
 
-    //OSC wave type select
+    //OSC 1
     params.push_back(std::make_unique<juce::AudioParameterChoice>("OSC1WAVETYPE", "Osc 1 Wave Type", juce::StringArray{ "Sine", "Saw", "Square", "Plus" }, 0));
     
-    // PROVA
-    params.push_back(std::make_unique<juce::AudioParameterChoice>("OCTAVE1", "octave", juce::StringArray{ "-2", "-1", "0", "+1", "+2"}, 2));
+    //OSC 2
+    params.push_back(std::make_unique<juce::AudioParameterChoice>("OSC2WAVETYPE", "Osc 2 Wave Type", juce::StringArray{ "Sine", "Saw", "Square", "Plus" }, 0));
+    params.push_back(std::make_unique<juce::AudioParameterChoice>("OSC2OCTAVE", "Octave Shift", juce::StringArray{ "-2", "-1", "0", "+1", "+2"}, 2));
 
     
-    //GAIN
+    //GAIN and PRESENCE
     params.push_back(std::make_unique<juce::AudioParameterFloat>("GAIN", "Gain", juce::NormalisableRange<float>{0.0f, 1.0f}, 0.5f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("PRESENCE", "Presence", juce::NormalisableRange<float>{0.0f, 1.0f}, 0.5f));
 
     //ADSR
     params.push_back(std::make_unique<juce::AudioParameterFloat>("ATTACK", "Attack", juce::NormalisableRange<float>{0.1f, 1.0f}, 0.1f));
@@ -227,6 +231,5 @@ juce::AudioProcessorValueTreeState::ParameterLayout RosalbabreaksynthAudioProces
     params.push_back(std::make_unique<juce::AudioParameterFloat>("RELEASE", "Release", juce::NormalisableRange<float>{0.1f, 3.0f}, 0.4f));
     
     
-
     return { params.begin(), params.end() };
 }

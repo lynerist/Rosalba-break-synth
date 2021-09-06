@@ -43,5 +43,5 @@ void OscComponent::resized()
 {
     oscWaveSelector.setBounds(0, 0, 90, 20);
     
-    octaveSelector.setBounds(100, 0, 90, 20); //se non funziona metti if di controllo
+    octaveSelector.setBounds(0, 30, 90, 20); //se non funziona metti if di controllo
 }

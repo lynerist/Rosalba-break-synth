@@ -11,10 +11,12 @@
 
 //==============================================================================
 RosalbabreaksynthAudioProcessorEditor::RosalbabreaksynthAudioProcessorEditor (RosalbabreaksynthAudioProcessor& p)
-    : AudioProcessorEditor (&p), audioProcessor (p), osc(audioProcessor.apvts, "OSC1WAVETYPE", "OCTAVE1"), adsr(audioProcessor.apvts), volumeFader(audioProcessor.apvts)
+    : AudioProcessorEditor (&p), audioProcessor (p), osc1(audioProcessor.apvts, "OSC1WAVETYPE"), 
+    osc2(audioProcessor.apvts, "OSC2WAVETYPE", "OSC2OCTAVE"), adsr(audioProcessor.apvts), volumeFader(audioProcessor.apvts)
 {
-    setSize (500, 400);
-    addAndMakeVisible(osc);
+    setSize (500, 500);
+    addAndMakeVisible(osc1);
+    addAndMakeVisible(osc2);
     addAndMakeVisible(adsr);
     addAndMakeVisible(volumeFader);
 }
@@ -31,7 +33,8 @@ void RosalbabreaksynthAudioProcessorEditor::paint (juce::Graphics& g)
 
 void RosalbabreaksynthAudioProcessorEditor::resized()
 {
-    osc.setBounds(10, 10, 210, 30);
+    osc1.setBounds(10, 10, 100, 30);
+    osc2.setBounds(110, 10, 100, 50);
     adsr.setBounds(getWidth() / 2, 0, getWidth() / 2, getHeight());
-    volumeFader.setBounds(10, 50, 100, getHeight()-100);
+    volumeFader.setBounds(10, 50, 90, getHeight()-50);
 }

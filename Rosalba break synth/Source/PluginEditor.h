@@ -29,7 +29,8 @@ public:
 
 private:
     RosalbabreaksynthAudioProcessor& audioProcessor;
-    OscComponent osc;
+    OscComponent osc1;
+    OscComponent osc2;
     AdsrComponent adsr;
     GainComponent volumeFader;
 

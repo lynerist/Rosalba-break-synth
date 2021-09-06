@@ -24,7 +24,8 @@ public:
     void getNextAudioBlock(juce::dsp::AudioBlock<float>& block);
 
     void setOctave(const int choice);
-
+    void setPresence(float presence);
 private:
     double shiftOctave;
+    float  presence;
 };
