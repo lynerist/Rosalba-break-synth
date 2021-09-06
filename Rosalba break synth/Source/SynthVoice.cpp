@@ -61,8 +61,8 @@ void SynthVoice::update(const float attack, const float decay, const float susta
 
     adsr.updateADSR(attack, decay, sustain, release);
     gain.setGainLinear(newGain);
-    osc1.setPresence(newPresence);
-    osc2.setPresence(1.0f- newPresence);
+    osc1.setPresence(1.0f - newPresence);
+    osc2.setPresence(newPresence);
 }
 
 void SynthVoice::renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples) {

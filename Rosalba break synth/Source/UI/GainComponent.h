@@ -30,6 +30,7 @@ public:
         presenceAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(apvts, "PRESENCE", presenceSlider);
         
         presenceSlider.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
+        presenceSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 0, 0);
         addAndMakeVisible(presenceSlider);
     }
 
@@ -45,15 +46,15 @@ public:
     void resized() override
     {
         const auto bounds = getLocalBounds().reduced(10);
-        const auto padding = 10;
-        const auto sliderWidth = bounds.getWidth() - padding;
+
+        const auto sliderWidth = bounds.getWidth();
         const auto sliderHeight = bounds.getHeight() - 100;
-        const auto sliderStartX = bounds.getWidth() / 2 - padding;
+        const auto sliderStartX = (bounds.getWidth() + 20 - sliderWidth) / 2 ;
         const auto sliderStartY = 0;
 
         gainSlider.setBounds(sliderStartX, sliderStartY, sliderWidth, sliderHeight);
 
-        presenceSlider.setBounds(0, sliderHeight + sliderStartY + 45, sliderWidth, 30);
+        presenceSlider.setBounds(sliderStartX, sliderHeight + sliderStartY + 45, sliderWidth, 30);
 
     }
 
