@@ -53,16 +53,18 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
     gain.prepare(spec);
 
     gain.setGainLinear(0.5f);
+    bitNumber = 24;
     
     isPrepared = true;
 }
 
-void SynthVoice::update(const float attack, const float decay, const float sustain, const float release, const float newGain, const float newPresence) {
+void SynthVoice::update(const float attack, const float decay, const float sustain, const float release, const float newGain, const float newPresence, const int newBitNumber) {
 
     adsr.updateADSR(attack, decay, sustain, release);
     gain.setGainLinear(newGain);
     osc1.setPresence(1.0f - newPresence);
     osc2.setPresence(newPresence);
+    bitNumber = newBitNumber;
 }
 
 void SynthVoice::renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples) {
@@ -83,11 +85,11 @@ void SynthVoice::renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int sta
 
     adsr.applyEnvelopeToBuffer(synthBuffer, 0, synthBuffer.getNumSamples());
 
-    int a = exp2(4);
+    int quantizationSteps = exp2(bitNumber);
 
     for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel) {
         for (int sample = 0; sample < synthBuffer.getNumSamples(); sample++) {
-            synthBuffer.setSample(channel, sample, round((synthBuffer.getSample(channel, sample)*a))/a);
+            synthBuffer.setSample(channel, sample, round((synthBuffer.getSample(channel, sample)* quantizationSteps))/ quantizationSteps);
         }
 
         outputBuffer.addFrom(channel, startSample, synthBuffer, channel, 0, numSamples);

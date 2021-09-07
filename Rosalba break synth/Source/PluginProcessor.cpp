@@ -155,9 +155,10 @@ void RosalbabreaksynthAudioProcessor::processBlock (juce::AudioBuffer<float>& bu
             auto& osc2WaveChoice = *apvts.getRawParameterValue("OSC2WAVETYPE");
             auto& osc2OctaveChoice = *apvts.getRawParameterValue("OSC2OCTAVE");
 
-            //Gain presence
+            //Gain Presence BitNumber
             auto& gain = *apvts.getRawParameterValue("GAIN");
             auto& presence = *apvts.getRawParameterValue("PRESENCE");
+            auto& bitNumber = *apvts.getRawParameterValue("BITNUMBER");
 
             //ADSR
             auto& attack = *apvts.getRawParameterValue("ATTACK");
@@ -165,7 +166,7 @@ void RosalbabreaksynthAudioProcessor::processBlock (juce::AudioBuffer<float>& bu
             auto& sustain = *apvts.getRawParameterValue("SUSTAIN");
             auto& release = *apvts.getRawParameterValue("RELEASE");
             
-            voice->update(attack.load(), decay.load(), sustain.load(), release.load(), gain.load(), presence.load());
+            voice->update(attack.load(), decay.load(), sustain.load(), release.load(), gain.load(), presence.load(), bitNumber.load());
             voice->getOscillator(1).setWaveType(osc1WaveChoice);
             voice->getOscillator(2).setWaveType(osc2WaveChoice);
             voice->getOscillator(2).setOctave(osc2OctaveChoice);
@@ -220,9 +221,10 @@ juce::AudioProcessorValueTreeState::ParameterLayout RosalbabreaksynthAudioProces
     params.push_back(std::make_unique<juce::AudioParameterChoice>("OSC2OCTAVE", "Octave Shift", juce::StringArray{ "-2", "-1", "0", "+1", "+2"}, 2));
 
     
-    //GAIN and PRESENCE
+    //GAIN, PRESENCE and BITNUMBER
     params.push_back(std::make_unique<juce::AudioParameterFloat>("GAIN", "Gain", juce::NormalisableRange<float>{0.0f, 1.0f}, 0.5f));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("PRESENCE", "Presence", juce::NormalisableRange<float>{0.0f, 1.0f}, 0.5f));
+    params.push_back(std::make_unique<juce::AudioParameterChoice>("BITNUMBER", "Bit Number", juce::StringArray{"1","2","3","4","5","6","7","8","9","10","12","14","16","20","24"}, 14));
 
     //ADSR
     params.push_back(std::make_unique<juce::AudioParameterFloat>("ATTACK", "Attack", juce::NormalisableRange<float>{0.1f, 1.0f}, 0.1f));
