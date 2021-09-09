@@ -24,6 +24,12 @@
         <FILE id="N2f9rW" name="OscData.cpp" compile="1" resource="0" file="Source/Data/OscData.cpp"/>
       </GROUP>
       <GROUP id="{54189EB1-16F2-5A8F-DD11-3135B809617A}" name="UI">
+        <FILE id="emgL8u" name="FilterListener.h" compile="0" resource="0"
+              file="Source/UI/FilterListener.h"/>
+        <FILE id="FNlXL7" name="TwoValueSliderAttachment.h" compile="0" resource="0"
+              file="Source/UI/TwoValueSliderAttachment.h"/>
+        <FILE id="gTFCe0" name="FilterComponent.h" compile="0" resource="0"
+              file="Source/UI/FilterComponent.h"/>
         <FILE id="PDmDmP" name="gainComponent.h" compile="0" resource="0" file="Source/UI/gainComponent.h"/>
         <FILE id="D8SQy9" name="AdsrComponent.cpp" compile="1" resource="0"
               file="Source/UI/AdsrComponent.cpp"/>
