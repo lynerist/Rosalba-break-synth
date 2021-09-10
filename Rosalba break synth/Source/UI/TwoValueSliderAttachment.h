@@ -157,6 +157,7 @@ private:
             slider(sl),
             ignoreCallbacks(false)
         {
+            sl.setSliderStyle(juce::Slider::SliderStyle::TwoValueHorizontal);
             jassert(
                 sl.getSliderStyle() == Slider::TwoValueHorizontal ||
                 sl.getSliderStyle() == Slider::TwoValueVertical

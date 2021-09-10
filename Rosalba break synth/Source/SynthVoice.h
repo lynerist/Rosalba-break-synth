@@ -15,6 +15,19 @@
 #include "Data/AdsrData.h"
 #include "Data/OscData.h"
 
+const auto DEFAULT_GAIN = 0.5f;
+const auto DEFAULT_PRESENCE = 0.5f;
+const auto MIN_FREQ = 0;
+const auto MAX_FREQ = 3000;
+
+const auto DEFAULT_ATTACK = 0.1f;
+const auto DEFAULT_DECAY = 0.1f;
+const auto DEFAULT_SUSTAIN = 1.0f;
+const auto DEFAULT_RELEASE = 0.4f;
+const auto MIN_ADSR = 0.1f;
+const auto MAX_ADSR = 3.0f;
+
+
 class SynthVoice : public juce::SynthesiserVoice {
 
 public:
@@ -26,7 +39,7 @@ public:
     void prepareToPlay(double sampleRate, int samplesPerBlock, int outputChannels);
     void renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override;
 
-    void update(const float attack, const float decay, const float sustain, const float release, const float gain, const float presence, const int newBitNumber);
+    void update(const float attack, const float decay, const float sustain, const float release, const float gain, const float presence, const int newBitNumber, const int highfreq, const int lowfreq);
     OscData& getOscillator(int id){ return id-1?osc2:osc1; };
 
 private:
@@ -36,6 +49,9 @@ private:
     OscData osc1;
     OscData osc2;
     
+    juce::dsp::StateVariableTPTFilter<float> highpassFilter;
+    juce::dsp::StateVariableTPTFilter<float> lowpassFilter;
+
     juce::dsp::Gain<float> gain;
 
     int bitNumber;

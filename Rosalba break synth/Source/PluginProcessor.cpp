@@ -160,17 +160,20 @@ void RosalbabreaksynthAudioProcessor::processBlock (juce::AudioBuffer<float>& bu
             auto& presence = *apvts.getRawParameterValue("PRESENCE");
             auto& bitNumber = *apvts.getRawParameterValue("BITNUMBER");
 
+            //Filter
+            auto& highFreq = *apvts.getRawParameterValue("HIGHFREQ");
+            auto& lowFreq = *apvts.getRawParameterValue("LOWFREQ");
+
             //ADSR
             auto& attack = *apvts.getRawParameterValue("ATTACK");
             auto& decay = *apvts.getRawParameterValue("DECAY");
             auto& sustain = *apvts.getRawParameterValue("SUSTAIN");
             auto& release = *apvts.getRawParameterValue("RELEASE");
             
-            voice->update(attack.load(), decay.load(), sustain.load(), release.load(), gain.load(), presence.load(), bitNumber.load());
+            voice->update(attack.load(), decay.load(), sustain.load(), release.load(), gain.load(), presence.load(), bitNumber.load(), highFreq.load(), lowFreq.load());
             voice->getOscillator(1).setWaveType(osc1WaveChoice);
             voice->getOscillator(2).setWaveType(osc2WaveChoice);
             voice->getOscillator(2).setOctave(osc2OctaveChoice);
-            
         }
     }
 
@@ -220,17 +223,21 @@ juce::AudioProcessorValueTreeState::ParameterLayout RosalbabreaksynthAudioProces
     params.push_back(std::make_unique<juce::AudioParameterChoice>("OSC2WAVETYPE", "Osc 2 Wave Type", juce::StringArray{ "Sine", "Saw", "Square", "Plus" }, 0));
     params.push_back(std::make_unique<juce::AudioParameterChoice>("OSC2OCTAVE", "Octave Shift", juce::StringArray{ "-2", "-1", "0", "+1", "+2"}, 2));
 
-    
     //GAIN, PRESENCE and BITNUMBER
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("GAIN", "Gain", juce::NormalisableRange<float>{0.0f, 1.0f}, 0.5f));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("PRESENCE", "Presence", juce::NormalisableRange<float>{0.0f, 1.0f}, 0.5f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("GAIN", "Gain", juce::NormalisableRange<float>{0.0f, 1.0f}, DEFAULT_GAIN));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("PRESENCE", "Presence", juce::NormalisableRange<float>{0.0f, 1.0f}, DEFAULT_PRESENCE));
     params.push_back(std::make_unique<juce::AudioParameterChoice>("BITNUMBER", "Bit Number", juce::StringArray{"1","2","3","4","5","6","7","8","9","10","12","16","24"}, 12));
 
+    //FILTER
+    params.push_back(std::make_unique<juce::AudioParameterInt>("HIGHFREQ", "Highpass cutoff frequency", MIN_FREQ, MAX_FREQ, MIN_FREQ));
+    params.push_back(std::make_unique<juce::AudioParameterInt>("LOWFREQ", "Lowpass cutoff frequency", MIN_FREQ, MAX_FREQ, MAX_FREQ));
+
+
     //ADSR
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("ATTACK", "Attack", juce::NormalisableRange<float>{0.1f, 1.0f}, 0.1f));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("DECAY", "Decay", juce::NormalisableRange<float>{0.1f, 1.0f}, 0.1f));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("SUSTAIN", "Sustain", juce::NormalisableRange<float>{0.1f, 1.0f}, 1.0f));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("RELEASE", "Release", juce::NormalisableRange<float>{0.1f, 3.0f}, 0.4f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("ATTACK", "Attack", juce::NormalisableRange<float>{MIN_ADSR, MAX_ADSR}, DEFAULT_ATTACK));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("DECAY", "Decay", juce::NormalisableRange<float>{MIN_ADSR, MAX_ADSR}, DEFAULT_DECAY));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("SUSTAIN", "Sustain", juce::NormalisableRange<float>{MIN_ADSR, 1.0f}, DEFAULT_SUSTAIN));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("RELEASE", "Release", juce::NormalisableRange<float>{MIN_ADSR, MAX_ADSR}, DEFAULT_RELEASE));
     
     
     return { params.begin(), params.end() };

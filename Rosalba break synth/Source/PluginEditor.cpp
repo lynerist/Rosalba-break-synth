@@ -38,8 +38,8 @@ void RosalbabreaksynthAudioProcessorEditor::resized()
     const auto bounds = getLocalBounds().reduced(10);
 
 
-    osc1.setBounds(210, 10, 100, 30);
-    osc2.setBounds(310, 10, 100, 50);
+    osc1.setBounds(210, 10, 90, 30);
+    osc2.setBounds(310, 10, 90, 50);
 
     adsr.setBounds(bounds.getWidth() / 2, 0, bounds.getWidth() / 2, bounds.getHeight());
     

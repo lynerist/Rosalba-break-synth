@@ -25,6 +25,7 @@ public:
 
         gainSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         gainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 60, 25);
+        gainSlider.setColour(gainSlider.textBoxTextColourId, juce::Colours::black);
         addAndMakeVisible(gainSlider);
 
         // OSC PRESENCE
@@ -39,7 +40,6 @@ public:
 
         bitNumberSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         bitNumberSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 60, 25);
-        
         bitNumberSlider.setColour(bitNumberSlider.textBoxTextColourId,juce::Colours::black);
         addAndMakeVisible(bitNumberSlider);
 

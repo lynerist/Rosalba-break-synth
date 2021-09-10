@@ -3,14 +3,13 @@
 
     FilterComponent.h
     Created: 8 Sep 2021 11:25:18pm
-    Author:  Utente
+    Author:  Leonardo Albani
 
   ==============================================================================
 */
 
 #pragma once
 
-#include "FilterListener.h"
 #include "TwoValueSliderAttachment.h"
 #include <JuceHeader.h>
 
@@ -23,7 +22,6 @@ public:
     FilterComponent(juce::AudioProcessorValueTreeState& apvts)
         : sliderAttachment(apvts, "HIGHFREQ", "LOWFREQ", filterSlider)
     {
-
 
         filterSlider.setSliderStyle(juce::Slider::SliderStyle::TwoValueHorizontal);
         filterSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 0, 0);

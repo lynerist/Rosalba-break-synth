@@ -10,6 +10,7 @@
 
 #include "SynthVoice.h"
 
+
 bool SynthVoice::canPlaySound(juce::SynthesiserSound* sound) {
 
     return dynamic_cast<juce::SynthesiserSound*>(sound) != nullptr;
@@ -52,19 +53,30 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
     osc2.prepareToPlay(spec);
     gain.prepare(spec);
 
-    gain.setGainLinear(0.5f);
+    gain.setGainLinear(DEFAULT_GAIN);
     bitNumber = 24;
-    
+
+    highpassFilter.prepare(spec);
+    lowpassFilter.prepare(spec);
+
+    highpassFilter.setType(juce::dsp::StateVariableTPTFilterType::highpass);
+    highpassFilter.setCutoffFrequency(MIN_FREQ);
+    lowpassFilter.setType(juce::dsp::StateVariableTPTFilterType::lowpass);
+    lowpassFilter.setCutoffFrequency(MAX_FREQ);
+        
     isPrepared = true;
 }
 
-void SynthVoice::update(const float attack, const float decay, const float sustain, const float release, const float newGain, const float newPresence, const int newBitNumber) {
+void SynthVoice::update(const float attack, const float decay, const float sustain, const float release, const float newGain, const float newPresence, const int newBitNumber, const int highfreq, const int lowfreq) {
 
     adsr.updateADSR(attack, decay, sustain, release);
     gain.setGainLinear(newGain);
     osc1.setPresence(1.0f - newPresence);
     osc2.setPresence(newPresence);
     bitNumber = newBitNumber;
+
+    highpassFilter.setCutoffFrequency(highfreq);
+    lowpassFilter.setCutoffFrequency(lowfreq);
 }
 
 void SynthVoice::renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples) {
@@ -81,16 +93,27 @@ void SynthVoice::renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int sta
 
     osc1.getNextAudioBlock(audioBlock);
     osc2.getNextAudioBlock(audioBlock);
-    gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
-
+    
     adsr.applyEnvelopeToBuffer(synthBuffer, 0, synthBuffer.getNumSamples());
-
+    
     int quantizationSteps = exp2(bitNumber);
 
     for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel) {
+
         for (int sample = 0; sample < synthBuffer.getNumSamples(); sample++) {
-            synthBuffer.setSample(channel, sample, round((synthBuffer.getSample(channel, sample)* quantizationSteps))/ quantizationSteps);
+            //Quantization noise distortion
+            float processedSample = round((synthBuffer.getSample(channel, sample)* quantizationSteps))/ quantizationSteps;
+
+            //Filter application
+            processedSample = highpassFilter.processSample(channel, processedSample);
+            processedSample = lowpassFilter.processSample(channel, processedSample);
+
+            //Gain
+            processedSample = gain.processSample(processedSample);
+
+            synthBuffer.setSample(channel, sample, processedSample);
         }
+
 
         outputBuffer.addFrom(channel, startSample, synthBuffer, channel, 0, numSamples);
 
