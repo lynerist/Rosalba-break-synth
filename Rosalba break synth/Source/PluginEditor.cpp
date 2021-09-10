@@ -35,9 +35,15 @@ void RosalbabreaksynthAudioProcessorEditor::paint (juce::Graphics& g)
 
 void RosalbabreaksynthAudioProcessorEditor::resized()
 {
+    const auto bounds = getLocalBounds().reduced(10);
+
+
     osc1.setBounds(210, 10, 100, 30);
     osc2.setBounds(310, 10, 100, 50);
-    adsr.setBounds(getWidth() / 2, 0, getWidth() / 2, getHeight());
-    volumeFader.setBounds(10, 50, 200, getHeight()-110);
-    filter.setBounds(0, getHeight()-100, getWidth() / 2, 100);
+
+    adsr.setBounds(bounds.getWidth() / 2, 0, bounds.getWidth() / 2, bounds.getHeight());
+    
+    volumeFader.setBounds(10, 50, 200, bounds.getHeight()-150);
+    
+    filter.setBounds(10, bounds.getHeight()-90, bounds.getWidth() / 2, 100);
 }
