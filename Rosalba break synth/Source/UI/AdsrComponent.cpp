@@ -33,23 +33,22 @@ void AdsrComponent::paint (juce::Graphics& g)
 {
     g.fillAll(juce::Colours::grey);
 
-    g.drawText("A", Rectangle<int>(1 U, 6 U, 2 U, 1 U), juce::Justification::centred);
-    g.drawText("D", Rectangle<int>((3+2/3) U, 6 U, 2 U, 1 U), juce::Justification::centred);
-    g.drawText("S", Rectangle<int>((6+1/3) U, 6 U, 2 U, 1 U), juce::Justification::centred);
-    g.drawText("R", Rectangle<int>(9 U, 6 U, 2 U, 1 U), juce::Justification::centred);
+    g.setFont(0.7 U);
+    g.drawText("A", Rectangle<int>(0.5 U , 6 U, 2 U, 1 U), juce::Justification::centred);
+    g.drawText("D", Rectangle<int>(3.5 U, 6 U, 2 U, 1 U), juce::Justification::centred);
+    g.drawText("S", Rectangle<int>(6.5 U, 6 U, 2 U, 1 U), juce::Justification::centred);
+    g.drawText("R", Rectangle<int>(9.5 U, 6 U, 2 U, 1 U), juce::Justification::centred);
 
 }
 
 void AdsrComponent::resized()
 {
-    const auto bounds = getLocalBounds().reduced(10);
-    const auto sliderWidth = 2 U;
-    const auto padding = 1 U / 2;
-    const auto sliderHeight = 6 U;
-    const auto sliderStartX = 1 U;
+    const auto padding = 1 U ;
     const auto sliderStartY = 0 U;
+    const auto sliderWidth = 2 U;
+    const auto sliderHeight = 6 U;
 
-    attackSlider.setBounds(sliderStartX, sliderStartY, sliderWidth, sliderHeight);
+    attackSlider.setBounds(1 U / 2, sliderStartY, sliderWidth, sliderHeight);
     decaySlider.setBounds(attackSlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
     sustainSlider.setBounds(decaySlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
     releaseSlider.setBounds(sustainSlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);

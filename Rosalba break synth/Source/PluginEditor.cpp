@@ -31,17 +31,26 @@ RosalbabreaksynthAudioProcessorEditor::~RosalbabreaksynthAudioProcessorEditor()
 void RosalbabreaksynthAudioProcessorEditor::paint (juce::Graphics& g)
 {
     g.fillAll(juce::Colours::black);
+
+    g.setColour(juce::Colours::whitesmoke);
+    g.setFont(0.7 U);
+    g.drawText("Waveform A", 20 U, 5 U, 4 U, 2 U, juce::Justification::centred);
+    g.drawText("Waveform B", 25 U, 5 U, 4 U, 2 U, juce::Justification::centred);
+    g.drawText("Shift Octave", 30 U, 5 U, 4 U, 2 U, juce::Justification::centred);
+
+    g.setFont(2 U);
+    g.drawText("ROSALBA BREAK SINTH", 4 U, 1 U, 28 U, 3 U, juce::Justification::centred);
+
 }
 
 void RosalbabreaksynthAudioProcessorEditor::resized()
 {
-
     volumeFader.setBounds(2 U, 5 U, 17 U, 17 U);
     
     adsr.setBounds(7 U, 5 U, 12 U, 7 U);
 
-    osc1.setBounds(20 U, 5 U, 4 U, 4 U);
-    osc2.setBounds(25 U, 5 U, 9 U, 4 U);
+    osc1.setBounds(20 U, 7 U, 4 U, 2 U);
+    osc2.setBounds(25 U, 7 U, 9 U, 2 U);
 
     filter.setBounds(20 U, 18 U, 14 U, 4 U);
 }

@@ -41,7 +41,7 @@ void OscComponent::paint (juce::Graphics& g)
 
 void OscComponent::resized()
 {
-    oscWaveSelector.setBounds(0 U, 2 U, 4 U, 2 U);
+    oscWaveSelector.setBounds(0 U, 0 U, 4 U, 2 U);
     
-    octaveSelector.setBounds(5 U, 2 U, 4 U, 2 U); 
+    octaveSelector.setBounds(5 U, 0 U, 4 U, 2 U); 
 }

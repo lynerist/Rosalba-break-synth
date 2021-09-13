@@ -53,6 +53,8 @@ public:
     void paint (juce::Graphics& g) override
     {
         g.fillAll(juce::Colours::lightgoldenrodyellow);
+        
+        g.setFont(0.7 U);
         g.drawText("A", Rectangle<int>(0 U, 14 U, 1 U, 2 U), juce::Justification::centred);
         g.drawText("B", Rectangle<int>(16 U, 14 U, 1 U, 2 U), juce::Justification::centred);
     }
