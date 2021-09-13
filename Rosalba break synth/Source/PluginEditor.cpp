@@ -15,11 +15,11 @@ RosalbabreaksynthAudioProcessorEditor::RosalbabreaksynthAudioProcessorEditor (Ro
     osc2(audioProcessor.apvts, "OSC2WAVETYPE", "OSC2OCTAVE"), adsr(audioProcessor.apvts), 
     volumeFader(audioProcessor.apvts), filter(audioProcessor.apvts)
 {
-    setSize (800, 500);
+    setSize (36 U, 23 U);
     addAndMakeVisible(osc1);
     addAndMakeVisible(osc2);
-    addAndMakeVisible(adsr);
     addAndMakeVisible(volumeFader);
+    addAndMakeVisible(adsr);
     addAndMakeVisible(filter);
 }
 
@@ -35,15 +35,13 @@ void RosalbabreaksynthAudioProcessorEditor::paint (juce::Graphics& g)
 
 void RosalbabreaksynthAudioProcessorEditor::resized()
 {
-    const auto bounds = getLocalBounds().reduced(10);
 
-
-    osc1.setBounds(210, 10, 90, 30);
-    osc2.setBounds(310, 10, 90, 50);
-
-    adsr.setBounds(bounds.getWidth() / 2, 0, bounds.getWidth() / 2, bounds.getHeight());
+    volumeFader.setBounds(2 U, 5 U, 17 U, 17 U);
     
-    volumeFader.setBounds(10, 50, 200, bounds.getHeight()-150);
-    
-    filter.setBounds(10, bounds.getHeight()-90, bounds.getWidth() / 2, 100);
+    adsr.setBounds(7 U, 5 U, 12 U, 7 U);
+
+    osc1.setBounds(20 U, 5 U, 4 U, 4 U);
+    osc2.setBounds(25 U, 5 U, 9 U, 4 U);
+
+    filter.setBounds(20 U, 18 U, 14 U, 4 U);
 }

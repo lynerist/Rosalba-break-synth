@@ -32,13 +32,14 @@ public:
         presenceAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(apvts, "PRESENCE", presenceSlider);
         
         presenceSlider.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
-        presenceSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 0, 0);
+        presenceSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 0 U, 0 U);
         addAndMakeVisible(presenceSlider);
+        
 
         // QUANTIZATION BIT NUMBER
         bitNumberAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(apvts, "BITNUMBER", bitNumberSlider);
 
-        bitNumberSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
+        bitNumberSlider.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
         bitNumberSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 60, 25);
         bitNumberSlider.setColour(bitNumberSlider.textBoxTextColourId,juce::Colours::black);
         addAndMakeVisible(bitNumberSlider);
@@ -52,20 +53,15 @@ public:
     void paint (juce::Graphics& g) override
     {
         g.fillAll(juce::Colours::lightgoldenrodyellow);
+        g.drawText("A", Rectangle<int>(0 U, 14 U, 1 U, 2 U), juce::Justification::centred);
+        g.drawText("B", Rectangle<int>(16 U, 14 U, 1 U, 2 U), juce::Justification::centred);
     }
 
     void resized() override
-    {
-        const auto bounds = getLocalBounds().reduced(10);
-
-        const auto sliderWidth = (bounds.getWidth()-10) / 2;
-        const auto sliderHeight = bounds.getHeight() - 100;
-        const auto sliderStartX = (bounds.getWidth() + 20) / 2 - (sliderWidth + 5);
-        const auto sliderStartY = 0;
-
-        gainSlider.setBounds(sliderStartX, sliderStartY, sliderWidth, sliderHeight);
-        bitNumberSlider.setBounds(sliderStartX + sliderWidth + 10, sliderStartY, sliderWidth, sliderHeight);
-        presenceSlider.setBounds(sliderStartX, sliderHeight + sliderStartY + 45, bounds.getWidth() , 30);
+    {       
+        gainSlider.setBounds(0 U, 0 U, 4 U, 12 U);
+        bitNumberSlider.setBounds(5 U, 8 U, 12 U, 4 U);
+        presenceSlider.setBounds(1 U, 13 U, 15 U, 4 U);
 
     }
 

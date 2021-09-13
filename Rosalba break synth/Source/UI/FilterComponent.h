@@ -11,6 +11,7 @@
 #pragma once
 
 #include "TwoValueSliderAttachment.h"
+#include "../SynthVoice.h"
 #include <JuceHeader.h>
 
 //==============================================================================
@@ -55,16 +56,10 @@ public:
 
     void resized() override
     {
-        const auto bounds = getLocalBounds().reduced(10);
+        filterSlider.setBounds(0 U, 0 U, 14 U, 3 U);
 
-        const auto sliderHeight = bounds.getHeight() - 30;
-        const auto boxWidth = 100;
-        const auto boxStartY = sliderHeight + 10;
-
-        filterSlider.setBounds(0, 0, bounds.getWidth(), sliderHeight);
-
-        highpassFreq.setBounds(0, boxStartY, boxWidth, 30);
-        lowpassFreq.setBounds(bounds.getWidth() - boxWidth, boxStartY, boxWidth, 30);
+        highpassFreq.setBounds(1 U, 3 U, 2 U, 1 U);
+        lowpassFreq.setBounds(11 U, 3 U, 2 U, 1 U);
     }
 
 private:

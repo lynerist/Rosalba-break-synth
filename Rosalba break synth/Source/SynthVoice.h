@@ -27,6 +27,10 @@ const auto DEFAULT_RELEASE = 0.4f;
 const auto MIN_ADSR = 0.1f;
 const auto MAX_ADSR = 3.0f;
 
+// 1 unit = 25 pixel
+const int u = 25;
+#define U *u
+
 
 class SynthVoice : public juce::SynthesiserVoice {
 
