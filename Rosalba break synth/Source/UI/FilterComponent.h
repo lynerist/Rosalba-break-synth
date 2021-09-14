@@ -32,6 +32,18 @@ public:
 
         highpassFreq.getTextValue().referTo(filterSlider.getMinValueObject());
         lowpassFreq.getTextValue().referTo(filterSlider.getMaxValueObject());
+        
+        // PER VISUALIZZARE COME INTERI I VALORI DI FREQUENZA DEL FILTRO (Che da filterSlider.getMinValueObject() sono double)
+
+        highpassFreq.onTextChange = [h = &highpassFreq] {
+            (*h).getTextValue().setValue(int((*h).getTextValue().getValue()));
+        };
+
+        lowpassFreq.onTextChange = [l = &lowpassFreq] {
+            (*l).getTextValue().setValue(int((*l).getTextValue().getValue()));
+        };
+
+        
 
         // VALORI INIZIALI????
         //highpassFreq.setText(filterSlider.getMinValueObject().getValue(), juce::NotificationType::sendNotification);
@@ -60,6 +72,11 @@ public:
 
         highpassFreq.setBounds(1 U, 3 U, 2 U, 1 U);
         lowpassFreq.setBounds(11 U, 3 U, 2 U, 1 U);
+    }
+
+    void prepareToPlay() {
+        highpassFreq.getTextValue().setValue(0);
+        lowpassFreq.getTextValue().setValue(3000);
     }
 
 private:

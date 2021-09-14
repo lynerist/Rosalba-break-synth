@@ -21,6 +21,7 @@ RosalbabreaksynthAudioProcessorEditor::RosalbabreaksynthAudioProcessorEditor (Ro
     addAndMakeVisible(volumeFader);
     addAndMakeVisible(adsr);
     addAndMakeVisible(filter);
+    filter.prepareToPlay();
 }
 
 RosalbabreaksynthAudioProcessorEditor::~RosalbabreaksynthAudioProcessorEditor()
