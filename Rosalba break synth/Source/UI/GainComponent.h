@@ -25,6 +25,8 @@ public:
 
         gainSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         gainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 60, 25);
+
+
         gainSlider.setColour(gainSlider.textBoxTextColourId, juce::Colours::black);
         addAndMakeVisible(gainSlider);
 
@@ -52,7 +54,7 @@ public:
 
     void paint (juce::Graphics& g) override
     {
-        g.fillAll(juce::Colours::lightpink);
+        g.fillAll(juce::Colour(0xF0E5B8A1));
         
         g.setFont(0.7 U);
         g.drawText("A", Rectangle<int>(0 U, 14 U, 1 U, 2 U), juce::Justification::centred);
