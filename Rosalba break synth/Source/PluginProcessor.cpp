@@ -224,8 +224,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout RosalbabreaksynthAudioProces
     params.push_back(std::make_unique<juce::AudioParameterChoice>("OSC2OCTAVE", "Octave Shift", juce::StringArray{ "-2", "-1", "0", "+1", "+2"}, 2));
 
     //GAIN, PRESENCE and BITNUMBER
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("GAIN", "Gain", juce::NormalisableRange<float>{0.0f, 1.0f}, DEFAULT_GAIN));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("PRESENCE", "Presence", juce::NormalisableRange<float>{0.0f, 1.0f}, DEFAULT_PRESENCE));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("GAIN", "Gain", juce::NormalisableRange<float>{0.0f, 1.0f, INTERVAL_VALUE}, DEFAULT_GAIN));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("PRESENCE", "Presence", juce::NormalisableRange<float>{0.0f, 1.0f, INTERVAL_VALUE}, DEFAULT_PRESENCE));
     params.push_back(std::make_unique<juce::AudioParameterChoice>("BITNUMBER", "Bit Number", juce::StringArray{"1","2","3","4","5","6","7","8","9","10","12","16","24"}, 12));
 
     //FILTER
@@ -234,10 +234,10 @@ juce::AudioProcessorValueTreeState::ParameterLayout RosalbabreaksynthAudioProces
 
 
     //ADSR
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("ATTACK", "Attack", juce::NormalisableRange<float>{MIN_ADSR, MAX_ADSR}, DEFAULT_ATTACK));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("DECAY", "Decay", juce::NormalisableRange<float>{MIN_ADSR, MAX_ADSR}, DEFAULT_DECAY));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("SUSTAIN", "Sustain", juce::NormalisableRange<float>{MIN_ADSR, 1.0f}, DEFAULT_SUSTAIN));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("RELEASE", "Release", juce::NormalisableRange<float>{MIN_ADSR, MAX_ADSR}, DEFAULT_RELEASE));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("ATTACK", "Attack", juce::NormalisableRange<float>{MIN_ADSR, MAX_ADSR, INTERVAL_VALUE}, DEFAULT_ATTACK));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("DECAY", "Decay", juce::NormalisableRange<float>{MIN_ADSR, MAX_ADSR, INTERVAL_VALUE}, DEFAULT_DECAY));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("SUSTAIN", "Sustain", juce::NormalisableRange<float>{MIN_ADSR, 1.0f, INTERVAL_VALUE}, DEFAULT_SUSTAIN));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("RELEASE", "Release", juce::NormalisableRange<float>{MIN_ADSR, MAX_ADSR, INTERVAL_VALUE}, DEFAULT_RELEASE));
     
     
     return { params.begin(), params.end() };

@@ -38,7 +38,6 @@ void AdsrComponent::paint (juce::Graphics& g)
     g.drawText("D", Rectangle<int>(3.5 U, 6 U, 2 U, 1 U), juce::Justification::centred);
     g.drawText("S", Rectangle<int>(6.5 U, 6 U, 2 U, 1 U), juce::Justification::centred);
     g.drawText("R", Rectangle<int>(9.5 U, 6 U, 2 U, 1 U), juce::Justification::centred);
-
 }
 
 void AdsrComponent::resized()
