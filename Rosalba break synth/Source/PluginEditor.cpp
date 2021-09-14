@@ -13,7 +13,7 @@
 RosalbabreaksynthAudioProcessorEditor::RosalbabreaksynthAudioProcessorEditor (RosalbabreaksynthAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p), osc1(audioProcessor.apvts, "OSC1WAVETYPE"), 
     osc2(audioProcessor.apvts, "OSC2WAVETYPE", "OSC2OCTAVE"), adsr(audioProcessor.apvts), 
-    volumeFader(audioProcessor.apvts), filter(audioProcessor.apvts)
+    volumeFader(audioProcessor.apvts), filter(audioProcessor.apvts), analyzer(p.analyzer)
 {
     setSize (36 U, 23 U);
     addAndMakeVisible(osc1);
@@ -22,6 +22,8 @@ RosalbabreaksynthAudioProcessorEditor::RosalbabreaksynthAudioProcessorEditor (Ro
     addAndMakeVisible(adsr);
     addAndMakeVisible(filter);
     filter.prepareToPlay();
+
+    addAndMakeVisible(analyzer);
 }
 
 RosalbabreaksynthAudioProcessorEditor::~RosalbabreaksynthAudioProcessorEditor()
@@ -54,4 +56,6 @@ void RosalbabreaksynthAudioProcessorEditor::resized()
     osc2.setBounds(25 U, 7 U, 9 U, 2 U);
 
     filter.setBounds(20 U, 18 U, 14 U, 4 U);
+
+    analyzer.setBounds(20 U, 10 U, 14 U, 7 U);
 }

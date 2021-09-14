@@ -14,6 +14,7 @@
 #include "UI/OscComponent.h"
 #include "UI/GainComponent.h"
 #include "UI/FilterComponent.h"
+#include "UI/SpectrumAnalyzer.h"
 
 //==============================================================================
 /**
@@ -35,6 +36,8 @@ private:
     AdsrComponent adsr;
     GainComponent volumeFader;
     FilterComponent filter;
+
+    AnalyzerComponent& analyzer;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RosalbabreaksynthAudioProcessorEditor)
 };

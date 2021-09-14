@@ -178,6 +178,7 @@ void RosalbabreaksynthAudioProcessor::processBlock (juce::AudioBuffer<float>& bu
     }
 
     synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
+    analyzer.getNextAudioBlock(buffer, 0);
 }
                                 
 //==============================================================================

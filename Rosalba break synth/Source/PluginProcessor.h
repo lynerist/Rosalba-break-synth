@@ -11,6 +11,7 @@
 #include <JuceHeader.h>
 #include "SynthVoice.h"
 #include "SynthSound.h"
+#include "UI/SpectrumAnalyzer.h"
 
 //==============================================================================
 /**
@@ -56,6 +57,8 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
     juce::AudioProcessorValueTreeState apvts;
+
+    AnalyzerComponent analyzer;
 
 private:
     juce::Synthesiser synth;

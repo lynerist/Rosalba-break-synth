@@ -64,6 +64,9 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
     lowpassFilter.setType(juce::dsp::StateVariableTPTFilterType::lowpass);
     lowpassFilter.setCutoffFrequency(MAX_FREQ);
         
+
+
+
     isPrepared = true;
 }
 

@@ -18,7 +18,7 @@
 const auto DEFAULT_GAIN = 0.5f;
 const auto DEFAULT_PRESENCE = 0.5f;
 const auto MIN_FREQ = 0;
-const auto MAX_FREQ = 3000;
+const auto MAX_FREQ = 4000;
 
 const auto DEFAULT_ATTACK = 0.1f;
 const auto DEFAULT_DECAY = 0.1f;
@@ -65,5 +65,6 @@ private:
     int bitNumber;
 
     bool isPrepared { false };
+
 
 };

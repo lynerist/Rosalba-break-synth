@@ -52,7 +52,7 @@ public:
 
     void paint (juce::Graphics& g) override
     {
-        g.fillAll(juce::Colours::lightgoldenrodyellow);
+        g.fillAll(juce::Colours::lightpink);
         
         g.setFont(0.7 U);
         g.drawText("A", Rectangle<int>(0 U, 14 U, 1 U, 2 U), juce::Justification::centred);

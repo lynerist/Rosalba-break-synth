@@ -31,7 +31,7 @@ AdsrComponent::~AdsrComponent()
 
 void AdsrComponent::paint (juce::Graphics& g)
 {
-    g.fillAll(juce::Colours::grey);
+    g.fillAll(juce::Colours::lightgreen);
 
     g.setFont(0.7 U);
     g.drawText("A", Rectangle<int>(0.5 U , 6 U, 2 U, 1 U), juce::Justification::centred);
