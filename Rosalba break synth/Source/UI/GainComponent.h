@@ -57,6 +57,11 @@ public:
         g.setFont(0.7 U);
         g.drawText("A", Rectangle<int>(0 U, 14 U, 1 U, 2 U), juce::Justification::centred);
         g.drawText("B", Rectangle<int>(16 U, 14 U, 1 U, 2 U), juce::Justification::centred);
+
+        LandF4.setColour(Slider::thumbColourId, Colours::mistyrose);
+        LandF4.setColour(Slider::trackColourId, Colours::bisque);
+        LandF4.setColour(Slider::textBoxOutlineColourId, Colours::peru);
+        gainSlider.setLookAndFeel(&LandF4);
     }
 
     void resized() override
@@ -71,6 +76,9 @@ private:
     juce::Slider gainSlider;
     juce::Slider presenceSlider;
     juce::Slider bitNumberSlider;
+
+    LookAndFeel_V4 LandF4;
+    LookAndFeel_V2 LandF2;
 
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> gainAttachment;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> presenceAttachment;
