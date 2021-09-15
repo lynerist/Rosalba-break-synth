@@ -42,13 +42,6 @@ public:
         lowpassFreq.onTextChange = [l = &lowpassFreq] {
             (*l).getTextValue().setValue(int((*l).getTextValue().getValue()));
         };
-
-        
-
-        // VALORI INIZIALI????
-        //highpassFreq.setText(filterSlider.getMinValueObject().getValue(), juce::NotificationType::sendNotification);
-        //lowpassFreq.setText(filterSlider.getMaxValueObject().getValue(), juce::NotificationType::sendNotification);
-
         
         addAndMakeVisible(filterSlider);
         addAndMakeVisible(highpassFreq);
@@ -62,7 +55,7 @@ public:
 
     void paint (juce::Graphics& g) override
     {
-        g.fillAll(juce::Colours::forestgreen);
+        g.fillAll(juce::Colour(0xE0E5B8A1));
 
     }
 
@@ -75,8 +68,8 @@ public:
     }
 
     void prepareToPlay() {
-        highpassFreq.getTextValue().setValue(0);
-        lowpassFreq.getTextValue().setValue(3000);
+        highpassFreq.getTextValue().setValue(MIN_FREQ);
+        lowpassFreq.getTextValue().setValue(MAX_FREQ);
     }
 
 private:
