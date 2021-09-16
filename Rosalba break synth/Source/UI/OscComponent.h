@@ -12,6 +12,7 @@
 
 #include <JuceHeader.h>
 #include "../SynthVoice.h"
+#include "LookAndFeelCustomization.h"
 
 //==============================================================================
 /*
@@ -19,7 +20,7 @@
 class OscComponent  : public juce::Component
 {
 public:
-    OscComponent(juce::AudioProcessorValueTreeState& apvts, juce::String waveSelectorId, juce::String octaveSelectorId="");
+    OscComponent(juce::AudioProcessorValueTreeState& apvts, juce::String waveSelectorId, juce::String octaveSelectorId = "");
     ~OscComponent() override;
 
     void paint (juce::Graphics&) override;
@@ -28,6 +29,8 @@ public:
 private:
     juce::ComboBox oscWaveSelector;
     juce::ComboBox octaveSelector;
+
+    LookAndFeelCustomization LandF;
 
     std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> oscWaveSelectorAttachment;
     std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> octaveSelectorAttachment;

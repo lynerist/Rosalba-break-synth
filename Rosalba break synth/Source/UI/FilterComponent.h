@@ -57,6 +57,8 @@ public:
     {
         g.fillAll(juce::Colour(0xE0E5B8A1));
 
+        filterSlider.setColour(filterSlider.thumbColourId, juce::Colour(0xFFB4D989));
+        filterSlider.setColour(filterSlider.trackColourId, juce::Colour(0xC0B4D989));
     }
 
     void resized() override

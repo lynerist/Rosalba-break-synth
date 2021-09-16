@@ -24,6 +24,8 @@
         <FILE id="N2f9rW" name="OscData.cpp" compile="1" resource="0" file="Source/Data/OscData.cpp"/>
       </GROUP>
       <GROUP id="{54189EB1-16F2-5A8F-DD11-3135B809617A}" name="UI">
+        <FILE id="yOUfeT" name="LookAndFeelCustomization.h" compile="0" resource="0"
+              file="Source/UI/LookAndFeelCustomization.h"/>
         <FILE id="Kwox2i" name="SpectrumAnalyzer.h" compile="0" resource="0"
               file="Source/UI/SpectrumAnalyzer.h"/>
         <FILE id="FNlXL7" name="TwoValueSliderAttachment.h" compile="0" resource="0"

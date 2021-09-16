@@ -37,6 +37,19 @@ OscComponent::~OscComponent()
 void OscComponent::paint (juce::Graphics& g)
 {
     g.fillAll(juce::Colours::black);
+    g.setFont(0.4);
+
+    //g.setColour(juce::Colour(0xF0B88546));
+    oscWaveSelector.setColour(oscWaveSelector.backgroundColourId, juce::Colours::black);
+    oscWaveSelector.setColour(oscWaveSelector.outlineColourId, juce::Colour(0xF0B88546));
+    oscWaveSelector.setColour(oscWaveSelector.arrowColourId, juce::Colour(0xF0B88546));
+
+    octaveSelector.setColour(octaveSelector.backgroundColourId, juce::Colours::black);
+    octaveSelector.setColour(octaveSelector.outlineColourId, juce::Colour(0xF0B88546));
+    octaveSelector.setColour(octaveSelector.arrowColourId, juce::Colour(0xF0B88546));
+
+    oscWaveSelector.setLookAndFeel(&LandF);
+    octaveSelector.setLookAndFeel(&LandF);
 }
 
 void OscComponent::resized()

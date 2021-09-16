@@ -11,6 +11,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+//#include "LookAndFeelCustomization.h"
 
 //==============================================================================
 /*
@@ -54,16 +55,25 @@ public:
 
     void paint (juce::Graphics& g) override
     {
-        g.fillAll(juce::Colour(0xF0E5B8A1));
+        //g.fillAll(juce::Colour(0xF0E5B8A1));
+        g.fillAll(juce::Colours::black);
         
+        g.setColour(juce::Colour(0xF0E5B8A1));
         g.setFont(0.7 U);
         g.drawText("A", Rectangle<int>(0 U, 14 U, 1 U, 2 U), juce::Justification::centred);
+        //g.setColour(juce::Colour(0xFFB4D989));
         g.drawText("B", Rectangle<int>(16 U, 14 U, 1 U, 2 U), juce::Justification::centred);
 
-        LandF4.setColour(Slider::thumbColourId, Colours::mistyrose);
-        LandF4.setColour(Slider::trackColourId, Colours::bisque);
-        LandF4.setColour(Slider::textBoxOutlineColourId, Colours::peru);
-        gainSlider.setLookAndFeel(&LandF4);
+        gainSlider.setColour(gainSlider.textBoxTextColourId, juce::Colours::whitesmoke);
+        bitNumberSlider.setColour(bitNumberSlider.textBoxTextColourId, juce::Colours::whitesmoke);
+
+        LandF.setColour(Slider::thumbColourId, juce::Colour(0xF0E5B8A1));
+        LandF.setColour(Slider::trackColourId, juce::Colour(0x80E5B8A1));
+        LandF.setColour(Slider::textBoxOutlineColourId, juce::Colour(0xF0B88546));
+        gainSlider.setLookAndFeel(&LandF);
+        bitNumberSlider.setLookAndFeel(&LandF);
+
+        presenceSlider.setColour(presenceSlider.thumbColourId, juce::Colour(0xF0E5B8A1));
     }
 
     void resized() override
@@ -79,8 +89,8 @@ private:
     juce::Slider presenceSlider;
     juce::Slider bitNumberSlider;
 
-    LookAndFeel_V4 LandF4;
-    LookAndFeel_V2 LandF2;
+    //LookAndFeelCustomization LandF;
+    LookAndFeel_V4 LandF;
 
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> gainAttachment;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> presenceAttachment;
