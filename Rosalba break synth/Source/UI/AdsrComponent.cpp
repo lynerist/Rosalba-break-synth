@@ -48,9 +48,6 @@ void AdsrComponent::paint (juce::Graphics& g)
     decaySlider.setLookAndFeel(&LandF);
     sustainSlider.setLookAndFeel(&LandF);
     releaseSlider.setLookAndFeel(&LandF);
-
-    //g.setColour(juce::Colour(0xF0B88546));
-    //g.drawRect(getLocalBounds());
 }
 
 void AdsrComponent::resized()

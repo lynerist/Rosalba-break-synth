@@ -33,8 +33,10 @@ RosalbabreaksynthAudioProcessorEditor::~RosalbabreaksynthAudioProcessorEditor()
 //==============================================================================
 void RosalbabreaksynthAudioProcessorEditor::paint (juce::Graphics& g)
 {
+
     g.fillAll(juce::Colours::black);
 
+    LookAndFeel::setDefaultLookAndFeel(&LandF);
     g.setColour(juce::Colour(0xFFB4D989));
     g.setFont(0.7 U);
     g.drawText("Waveform A", 20 U, 5 U, 4 U, 2 U, juce::Justification::centred);
@@ -43,7 +45,7 @@ void RosalbabreaksynthAudioProcessorEditor::paint (juce::Graphics& g)
 
     g.setColour(juce::Colours::whitesmoke);
     g.setFont(2 U);
-    g.drawText("ROSALBA BREAK SINTH", 4 U, 1 U, 28 U, 3 U, juce::Justification::centred);
+    g.drawText("ROSALBA BREAK SYNTH", 4 U, 1 U, 28 U, 3 U, juce::Justification::centred);
 
 }
 

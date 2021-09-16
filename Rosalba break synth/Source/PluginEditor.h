@@ -15,6 +15,7 @@
 #include "UI/GainComponent.h"
 #include "UI/FilterComponent.h"
 #include "UI/SpectrumAnalyzer.h"
+#include "UI/LookAndFeelCustomization.h"
 
 //==============================================================================
 /**
@@ -38,6 +39,8 @@ private:
     FilterComponent filter;
 
     AnalyzerComponent& analyzer;
+
+    LookAndFeelCustomization LandF;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RosalbabreaksynthAudioProcessorEditor)
 };

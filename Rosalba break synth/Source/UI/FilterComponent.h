@@ -55,10 +55,19 @@ public:
 
     void paint (juce::Graphics& g) override
     {
-        g.fillAll(juce::Colour(0xE0E5B8A1));
+        g.fillAll(juce::Colour(0xE0E5B8A1));    //rosa vecchio
+        //g.fillAll(juce::Colour(0xE0FFD2BB));
 
-        filterSlider.setColour(filterSlider.thumbColourId, juce::Colour(0xFFB4D989));
-        filterSlider.setColour(filterSlider.trackColourId, juce::Colour(0xC0B4D989));
+        //filterSlider.setColour(filterSlider.thumbColourId, juce::Colour(0xF094B969));
+        filterSlider.setColour(filterSlider.thumbColourId, juce::Colour(0xFFB88546));
+        filterSlider.setColour(filterSlider.trackColourId, juce::Colour(0xC094B969));
+        //filterSlider.setColour(filterSlider.trackColourId, juce::Colour(0xC0B4D989));
+        
+        //filterSlider.setColour(filterSlider.thumbColourId, juce::Colour(0xFF0B5645));
+        //filterSlider.setColour(filterSlider.trackColourId, juce::Colour(0xC00B5645));
+
+        // #31746A  verde scuro
+        // #0B5645 verde scuro persiane brillante
     }
 
     void resized() override

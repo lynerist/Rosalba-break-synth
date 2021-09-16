@@ -10,27 +10,13 @@
 
 #pragma once
 #include <juceHeader.h>
+#include "BinaryData.h"
 
 class LookAndFeelCustomization : public juce::LookAndFeel_V4 {
 
 public:
     LookAndFeelCustomization() {}
     ~LookAndFeelCustomization() {}
-
-    /*void LookAndFeelCustomization::drawComboBox(juce::Graphics& g, int width, int height, bool,
-        int, int, int, int, juce::ComboBox& box) override {
-
-        auto arrowZone = juce::Rectangle<int>(width - 30, 0, 30, height).reduced(0, 8);
-        juce::Path path;
-
-        path.addTriangle(juce::Point<float>((float)arrowZone.getX(), (float)arrowZone.getY()),
-            juce::Point<float>((float)arrowZone.getRight(), (float)arrowZone.getY()),
-            juce::Point<float>((float)arrowZone.getCentreX(), (float)arrowZone.getBottom()));
-
-
-        g.setColour(box.findColour(juce::ComboBox::arrowColourId));
-        g.fillPath(path);
-    }*/
 
     void LookAndFeelCustomization::drawPopupMenuItem(juce::Graphics& g, const juce::Rectangle<int>& area,
         const bool isSeparator, const bool isActive,
@@ -44,11 +30,11 @@ public:
         if (isHighlighted && isActive)
         {
             g.fillRect(area);
-            g.setColour(juce::Colours::whitesmoke);
+            g.setColour(juce::Colours::black);
         }
 
         g.setFont(16);
-        g.drawFittedText(text, area.reduced(6, 0), juce::Justification::left, 1);
+        g.drawFittedText(text, area.reduced(6, 0), juce::Justification::centred, 1);    //left
     }
 
     void LookAndFeelCustomization::drawPopupMenuBackground(juce::Graphics& g, int width, int height)
@@ -64,6 +50,13 @@ public:
     {
         idealHeight = standardMenuItemHeight;
         idealWidth = 0;
+    }
+
+    //font embedding
+    Typeface::Ptr getTypefaceForFont(const Font& f) override
+    {
+        static Typeface::Ptr myFont = Typeface::createSystemTypefaceFor(BinaryData::AvaraBold_ttf, BinaryData::AvaraBold_ttfSize);
+        return myFont;
     }
 
 };
