@@ -39,7 +39,7 @@ public:
         const juce::String& shortcutKeyText,
         const juce::Drawable* icon, const juce::Colour* const textColourToUse)
     {
-        g.setColour(juce::Colour(0x80B4D989));
+        g.setColour(juce::Colour(0xC0B4D989));
 
         if (isHighlighted && isActive)
         {
