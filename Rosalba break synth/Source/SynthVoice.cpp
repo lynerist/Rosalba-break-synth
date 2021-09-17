@@ -117,7 +117,6 @@ void SynthVoice::renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int sta
             synthBuffer.setSample(channel, sample, processedSample);
         }
 
-
         outputBuffer.addFrom(channel, startSample, synthBuffer, channel, 0, numSamples);
 
         if (! adsr.isActive())

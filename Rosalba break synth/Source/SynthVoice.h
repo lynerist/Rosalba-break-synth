@@ -31,7 +31,11 @@ const auto INTERVAL_VALUE = 0.1f;
 const auto INTERVAL_VALUE_TWO_DECIMALS = 0.01f;
 
 
-// 1 unit = 25 pixel
+/* ==============================================================================
+    U è un'unità di misura customizzata che permette di rendere il plugin facilmente scalabile.
+    Modificando il valore della costante u si possono rimpicciolire in scala tutte le sue componenti.
+    1 unit = 25 pixel
+ ============================================================================== */
 const int u = 25;
 #define U *u
 
@@ -65,6 +69,5 @@ private:
     int bitNumber;
 
     bool isPrepared { false };
-
 
 };

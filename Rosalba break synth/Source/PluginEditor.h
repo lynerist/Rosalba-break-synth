@@ -1,10 +1,3 @@
-/*
-  ==============================================================================
-
-    This file contains the basic framework code for a JUCE plugin editor.
-
-  ==============================================================================
-*/
 
 #pragma once
 
@@ -18,8 +11,7 @@
 #include "UI/LookAndFeelCustomization.h"
 
 //==============================================================================
-/**
-*/
+
 class RosalbabreaksynthAudioProcessorEditor  : public juce::AudioProcessorEditor
 {
 public:

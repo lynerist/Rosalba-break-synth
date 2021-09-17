@@ -60,7 +60,6 @@ public:
         g.setColour(juce::Colour(0xE0FFD2BB));
         g.setFont(0.7 U);
         g.drawText("A", Rectangle<int>(0 U, 14 U, 1 U, 2 U), juce::Justification::centred);
-        //g.setColour(juce::Colour(0xFFB4D989));
         g.drawText("B", Rectangle<int>(16 U, 14 U, 1 U, 2 U), juce::Justification::centred);
 
         g.drawText("bit", Rectangle<int>(11.5 U, 10.55 U, 3 U, 2 U), juce::Justification::centred);
@@ -75,7 +74,6 @@ public:
         bitNumberSlider.setLookAndFeel(&LandF);
 
         presenceSlider.setColour(presenceSlider.thumbColourId, juce::Colour(0xFFB4D989));
-        
     }
 
     void resized() override
@@ -83,7 +81,6 @@ public:
         gainSlider.setBounds(0 U, 0 U, 4 U, 12 U);
         bitNumberSlider.setBounds(5 U, 8 U, 12 U, 4 U);
         presenceSlider.setBounds(1 U, 13 U, 15 U, 4 U);
-
     }
 
 private:

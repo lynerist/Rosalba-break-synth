@@ -33,12 +33,14 @@ public:
         highpassFreq.getTextValue().referTo(filterSlider.getMinValueObject());
         lowpassFreq.getTextValue().referTo(filterSlider.getMaxValueObject());
         
-        // PER VISUALIZZARE COME INTERI I VALORI DI FREQUENZA DEL FILTRO (Che da filterSlider.getMinValueObject() sono double)
 
+    /* ==============================================================================
+        Per visualizzare come interi i valori di taglio del filtro
+        (Che da filterSlider.getMinValueObject().getValue() sono double)
+    ============================================================================== */
         highpassFreq.onTextChange = [h = &highpassFreq] {
             (*h).getTextValue().setValue(int((*h).getTextValue().getValue()));
         };
-
         lowpassFreq.onTextChange = [l = &lowpassFreq] {
             (*l).getTextValue().setValue(int((*l).getTextValue().getValue()));
         };
@@ -55,19 +57,10 @@ public:
 
     void paint (juce::Graphics& g) override
     {
-        g.fillAll(juce::Colour(0xE0E5B8A1));    //rosa vecchio
-        //g.fillAll(juce::Colour(0xE0FFD2BB));
+        g.fillAll(juce::Colour(0xE0E5B8A1)); 
 
-        //filterSlider.setColour(filterSlider.thumbColourId, juce::Colour(0xF094B969));
         filterSlider.setColour(filterSlider.thumbColourId, juce::Colour(0xFFB88546));
         filterSlider.setColour(filterSlider.trackColourId, juce::Colour(0xC094B969));
-        //filterSlider.setColour(filterSlider.trackColourId, juce::Colour(0xC0B4D989));
-        
-        //filterSlider.setColour(filterSlider.thumbColourId, juce::Colour(0xFF0B5645));
-        //filterSlider.setColour(filterSlider.trackColourId, juce::Colour(0xC00B5645));
-
-        // #31746A  verde scuro
-        // #0B5645 verde scuro persiane brillante
     }
 
     void resized() override
@@ -78,6 +71,9 @@ public:
         lowpassFreq.setBounds(11 U, 3 U, 2 U, 1 U);
     }
 
+    /* ==============================================================================
+        Altrimenti i valori delle frequenze di taglio all'inizio non sono visualizzati
+     ============================================================================== */
     void prepareToPlay() {
         highpassFreq.getTextValue().setValue(MIN_FREQ);
         lowpassFreq.getTextValue().setValue(MAX_FREQ);
@@ -86,6 +82,9 @@ public:
 private:
     juce::Slider filterSlider;
 
+ /* ==============================================================================
+    Le due label servono a visualizzare i valori del twoValueSlider
+ ============================================================================== */
     juce::Label highpassFreq;
     juce::Label lowpassFreq;
 

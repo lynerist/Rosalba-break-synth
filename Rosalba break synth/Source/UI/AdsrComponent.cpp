@@ -31,7 +31,6 @@ AdsrComponent::~AdsrComponent()
 
 void AdsrComponent::paint (juce::Graphics& g)
 {
-    //g.fillAll(juce::Colour(0xFFB4D989));
     g.fillAll(juce::Colours::black);
 
     g.setColour(juce::Colour(0xFFB4D989));
@@ -64,7 +63,6 @@ void AdsrComponent::resized()
 }
 
 void AdsrComponent::setSliderParams(juce::Slider& slider) {
-
     slider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     slider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
     addAndMakeVisible(slider);

@@ -117,27 +117,12 @@ public:
 
             g.setColour(juce::Colour(0xFFB4D989));
 
-           
-
-            juce::Path path;
-
-            path.startNewSubPath(0, height);
-            path.addLineSegment({ (float)juce::jmap(i - 1, 0, scopeSize - 1, 0, width),
-                                  juce::jmap(scopeData[i - 1], 0.0f, 1.0f, (float)height, 0.0f),
-                          (float)juce::jmap(i,     0, scopeSize - 1, 0, width),
-                                  juce::jmap(scopeData[i],     0.0f, 1.0f, (float)height, 0.0f) }, 1);
-
-            path.lineTo(0, height);
-            path.closeSubPath();
-
-            g.fillPath(path);
-
-       /*     g.drawLine({ (float)juce::jmap(i - 1, 0, scopeSize - 1, 0, width),
+            g.drawLine({ (float)juce::jmap(i - 1, 0, scopeSize - 1, 0, width),
                                   juce::jmap(scopeData[i - 1], 0.0f, 1.0f, (float)height, 0.0f),
                           (float)juce::jmap(i,     0, scopeSize - 1, 0, width),
                                   juce::jmap(scopeData[i],     0.0f, 1.0f, (float)height, 0.0f) });
 
-            */
+            
         }
     }
 

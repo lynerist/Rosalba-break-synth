@@ -1,10 +1,3 @@
-/*
-  ==============================================================================
-
-    This file contains the basic framework code for a JUCE plugin processor.
-
-  ==============================================================================
-*/
 
 #pragma once
 
@@ -14,8 +7,7 @@
 #include "UI/SpectrumAnalyzer.h"
 
 //==============================================================================
-/**
-*/
+
 class RosalbabreaksynthAudioProcessor  : public juce::AudioProcessor
 {
 public:

@@ -15,8 +15,7 @@
 #include "LookAndFeelCustomization.h"
 
 //==============================================================================
-/*
-*/
+
 class OscComponent  : public juce::Component
 {
 public:

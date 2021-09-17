@@ -42,11 +42,9 @@ void OscComponent::paint (juce::Graphics& g)
 
     oscWaveSelector.setJustificationType(juce::Justification::centred);
 
-    //g.setColour(juce::Colour(0xF0B88546));
     oscWaveSelector.setColour(oscWaveSelector.backgroundColourId, juce::Colours::black);
     oscWaveSelector.setColour(oscWaveSelector.outlineColourId, juce::Colour(0xF0B88546));
     oscWaveSelector.setColour(oscWaveSelector.arrowColourId, juce::Colour(0xF0B88546));
-
 
     octaveSelector.setJustificationType(juce::Justification::centred);
 
@@ -61,6 +59,5 @@ void OscComponent::paint (juce::Graphics& g)
 void OscComponent::resized()
 {
     oscWaveSelector.setBounds(0 U, 0 U, 4 U, 2 U);
-    
     octaveSelector.setBounds(5 U, 0 U, 4 U, 2 U); 
 }
