@@ -3,7 +3,7 @@
 
     TwoValueSliderAttachment.h
     Created: 11 Dec 2017 7:35:47pm
-    Author:  Nikolay Tsenkov
+    Author:  Nikolay Tsenkov (Con nostre modifiche per togliere elementi deprecati)
 
   ==============================================================================
 */
@@ -11,9 +11,7 @@
 
 #pragma once
 
-
 #include "JuceHeader.h"
-
 
 struct MultiValueAttachedControlBase : public AudioProcessorValueTreeState::Listener,
     public AsyncUpdater

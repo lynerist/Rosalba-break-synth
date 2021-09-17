@@ -10,13 +10,12 @@
 
 #pragma once
 
+#include <JuceHeader.h>
 #include "TwoValueSliderAttachment.h"
 #include "../SynthVoice.h"
-#include <JuceHeader.h>
 
 //==============================================================================
-/*
-*/
+
 class FilterComponent  : public juce::Component
 {
 public:
@@ -48,7 +47,6 @@ public:
         addAndMakeVisible(filterSlider);
         addAndMakeVisible(highpassFreq);
         addAndMakeVisible(lowpassFreq);
-
     }
 
     ~FilterComponent() override
@@ -72,7 +70,7 @@ public:
     }
 
     /* ==============================================================================
-        Altrimenti i valori delle frequenze di taglio all'inizio non sono visualizzati
+        Senza prepareToPlay i valori delle frequenze di taglio all'inizio non sono visualizzati
      ============================================================================== */
     void prepareToPlay() {
         highpassFreq.getTextValue().setValue(MIN_FREQ);

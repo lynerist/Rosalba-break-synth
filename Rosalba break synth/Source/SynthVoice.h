@@ -16,6 +16,7 @@
 #include "Data/OscData.h"
 
 const auto DEFAULT_GAIN = 0.5f;
+const auto DEFAULTBITNUMBER = 24;
 const auto DEFAULT_PRESENCE = 0.5f;
 const auto MIN_FREQ = 0;
 const auto MAX_FREQ = 4000;
@@ -69,5 +70,4 @@ private:
     int bitNumber;
 
     bool isPrepared { false };
-
 };

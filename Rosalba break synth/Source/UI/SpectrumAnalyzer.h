@@ -68,11 +68,9 @@ public:
 
     void pushNextSampleIntoFifo(float sample) noexcept
     {
-        // if the fifo contains enough data, set a flag to say
-        // that the next frame should now be rendered..
-        if (fifoIndex == fftSize)               // [11]
+        if (fifoIndex == fftSize)              
         {
-            if (!nextFFTBlockReady)            // [12]
+            if (!nextFFTBlockReady)            
             {
                 juce::zeromem(fftData, sizeof(fftData));
                 memcpy(fftData, fifo, sizeof(fifo));
@@ -81,22 +79,21 @@ public:
 
             fifoIndex = 0;
         }
-
-        fifo[fifoIndex++] = sample;             // [12]
+        fifo[fifoIndex++] = sample;             
     }
 
     void drawNextFrameOfSpectrum()
     {
         // first apply a windowing function to our data
-        window.multiplyWithWindowingTable(fftData, fftSize);       // [1]
+        window.multiplyWithWindowingTable(fftData, fftSize);       
 
         // then render our FFT data..
-        forwardFFT.performFrequencyOnlyForwardTransform(fftData);  // [2]
+        forwardFFT.performFrequencyOnlyForwardTransform(fftData);  
 
         auto mindB = -100.0f;
         auto maxdB = 0.0f;
 
-        for (int i = 0; i < scopeSize; ++i)                         // [3]
+        for (int i = 0; i < scopeSize; ++i)                         
         {
             auto skewedProportionX = 1.0f - std::exp(std::log(1.0f - (float)i / (float)scopeSize) * 0.2f);
             auto fftDataIndex = juce::jlimit(0, fftSize / 2, (int)(skewedProportionX * (float)fftSize * 0.5f));
@@ -104,7 +101,7 @@ public:
                 - juce::Decibels::gainToDecibels((float)fftSize)),
                 mindB, maxdB, 0.0f, 1.0f);
 
-            scopeData[i] = level;                                   // [4]
+            scopeData[i] = level;                                  
         }
     }
 
@@ -121,27 +118,25 @@ public:
                                   juce::jmap(scopeData[i - 1], 0.0f, 1.0f, (float)height, 0.0f),
                           (float)juce::jmap(i,     0, scopeSize - 1, 0, width),
                                   juce::jmap(scopeData[i],     0.0f, 1.0f, (float)height, 0.0f) });
-
-            
         }
     }
 
     enum
     {
-        fftOrder = 11,             // [1]
-        fftSize = 1 << fftOrder,  // [2]
-        scopeSize = 512             // [3]
+        fftOrder = 11,             
+        fftSize = 1 << fftOrder,  
+        scopeSize = 512            
     };
 
 private:
-    juce::dsp::FFT forwardFFT;                      // [4]
-    juce::dsp::WindowingFunction<float> window;     // [5]
+    juce::dsp::FFT forwardFFT;                     
+    juce::dsp::WindowingFunction<float> window;    
 
-    float fifo[fftSize];                           // [6]
-    float fftData[2 * fftSize];                    // [7]
-    int fifoIndex = 0;                              // [8]
-    bool nextFFTBlockReady = false;                 // [9]
-    float scopeData[scopeSize];                    // [10]
+    float fifo[fftSize];                           
+    float fftData[2 * fftSize];                    
+    int fifoIndex = 0;                             
+    bool nextFFTBlockReady = false;                
+    float scopeData[scopeSize];                    
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AnalyzerComponent)
 };

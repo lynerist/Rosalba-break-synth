@@ -43,6 +43,7 @@ void AdsrComponent::paint (juce::Graphics& g)
     LandF.setColour(Slider::thumbColourId, juce::Colour(0xFFB4D989));
     LandF.setColour(Slider::trackColourId, juce::Colour(0x80B4D989));
     LandF.setColour(Slider::textBoxOutlineColourId, juce::Colour(0xF0B88546));
+
     attackSlider.setLookAndFeel(&LandF);
     decaySlider.setLookAndFeel(&LandF);
     sustainSlider.setLookAndFeel(&LandF);

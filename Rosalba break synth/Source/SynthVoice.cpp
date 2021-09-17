@@ -10,7 +10,6 @@
 
 #include "SynthVoice.h"
 
-
 bool SynthVoice::canPlaySound(juce::SynthesiserSound* sound) {
 
     return dynamic_cast<juce::SynthesiserSound*>(sound) != nullptr;
@@ -31,13 +30,9 @@ void SynthVoice::stopNote(float velocity, bool allowTailOff) {
 };
 
 void SynthVoice::controllerMoved(int controllerNumber, int newControllerValue) {
-
-
 };
 
 void SynthVoice::pitchWheelMoved(int newPitchWheelValue) {
-
-
 }
 
 void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outputChannels) {
@@ -54,7 +49,7 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
     gain.prepare(spec);
 
     gain.setGainLinear(DEFAULT_GAIN);
-    bitNumber = 24;
+    bitNumber = DEFAULTBITNUMBER;
 
     highpassFilter.prepare(spec);
     lowpassFilter.prepare(spec);
@@ -64,9 +59,6 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
     lowpassFilter.setType(juce::dsp::StateVariableTPTFilterType::lowpass);
     lowpassFilter.setCutoffFrequency(MAX_FREQ);
         
-
-
-
     isPrepared = true;
 }
 
@@ -92,7 +84,7 @@ void SynthVoice::renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int sta
     synthBuffer.setSize(outputBuffer.getNumChannels(), numSamples, false, false, true);
     synthBuffer.clear();
 
-    juce::dsp::AudioBlock<float> audioBlock{ synthBuffer };  //audioBlock alias di buffer di classe AudioBlock
+    juce::dsp::AudioBlock<float> audioBlock{ synthBuffer };
 
     osc1.getNextAudioBlock(audioBlock);
     osc2.getNextAudioBlock(audioBlock);

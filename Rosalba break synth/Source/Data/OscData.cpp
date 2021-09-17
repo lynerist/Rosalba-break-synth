@@ -20,7 +20,7 @@ void OscData::prepareToPlay(juce::dsp::ProcessSpec& spec) {
 }
 
 /* ==============================================================================
- p è una variabile complementare fra i due oscillatori, la somma delle due è sempre 1
+ p Ã¨ una variabile complementare fra i due oscillatori, la somma delle due Ã¨ sempre 1
  serve a definire la presenza di uno rispetto all'altro.
  ============================================================================== */
 
@@ -56,7 +56,7 @@ void OscData::getNextAudioBlock(juce::dsp::AudioBlock<float>& block) {
 
 /* ==============================================================================
 2^(choice-2) = 1/4 * 2^choice (-1 serve a correggere l'ottava ottenendo A4 = 440Hz)
-i valori di choice vanno da 0 a 4 così si ottiene:
+i valori di choice vanno da 0 a 4 cosÃ¬ si ottiene:
 c = 0 -> shift = 1/4 (-2 ottave)
 c = 1 -> shift = 1/2 (-1 ottave)
 c = 2 -> shift = 1   (+0 ottave)

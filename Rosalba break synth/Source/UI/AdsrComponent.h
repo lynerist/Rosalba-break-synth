@@ -14,8 +14,7 @@
 #include "../SynthVoice.h"
 
 //==============================================================================
-/*
-*/
+
 class AdsrComponent  : public juce::Component
 {
 public:
