@@ -18,6 +18,7 @@ RosalbabreaksynthAudioProcessor::RosalbabreaksynthAudioProcessor()
     synth.addVoice(new SynthVoice());
     synth.addVoice(new SynthVoice());
     synth.addVoice(new SynthVoice());
+    synth.addVoice(new SynthVoice());
 }
 
 RosalbabreaksynthAudioProcessor::~RosalbabreaksynthAudioProcessor()
