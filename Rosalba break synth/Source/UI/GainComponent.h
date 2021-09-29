@@ -23,6 +23,8 @@ public:
         // GAIN
         gainAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(apvts, "GAIN", gainSlider);
 
+        gainSlider.setSkewFactor(0.5);  //check
+
         gainSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         gainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 60, 25);
         addAndMakeVisible(gainSlider);
@@ -45,6 +47,8 @@ public:
 
     ~GainComponent() override
     {
+        gainSlider.setLookAndFeel(nullptr);
+        bitNumberSlider.setLookAndFeel(nullptr);
     }
 
     void paint (juce::Graphics& g) override
@@ -52,20 +56,35 @@ public:
         g.fillAll(juce::Colours::black);
         
         g.setColour(juce::Colour(0xE0FFD2BB));
-        g.setFont(0.7 U);
+        g.setFont(LookAndFeelCustomization::getCustomFont().withHeight(0.7 U));
 
         g.drawText("A", Rectangle<int>(0 U, 14 U, 1 U, 2 U), juce::Justification::centred);
         g.drawText("B", Rectangle<int>(16 U, 14 U, 1 U, 2 U), juce::Justification::centred);
         g.drawText("bit", Rectangle<int>(11.5 U, 10.55 U, 3 U, 2 U), juce::Justification::centred);
-
-        gainSlider.setColour(gainSlider.textBoxTextColourId, juce::Colours::whitesmoke);
-        bitNumberSlider.setColour(bitNumberSlider.textBoxTextColourId, juce::Colours::whitesmoke);
-        presenceSlider.setColour(presenceSlider.thumbColourId, juce::Colour(0xFFB4D989));
+        g.drawText("Gain", Rectangle<int>(0.5 U, 11.5 U, 3 U, 3 U), juce::Justification::centred);
         
-        LandF.setColour(Slider::thumbColourId, juce::Colour(0xE0FFD2BB));
-        LandF.setColour(Slider::trackColourId, juce::Colour(0x80E5B8A1));
+        /*gainSlider.setColour(gainSlider.textBoxTextColourId, juce::Colours::whitesmoke);
+        bitNumberSlider.setColour(bitNumberSlider.textBoxTextColourId, juce::Colours::whitesmoke);*/
+        
+        LandF.setColour(Slider::textBoxTextColourId, juce::Colours::whitesmoke);
+
+        /*gainSlider.setColour(gainSlider.textBoxOutlineColourId, juce::Colour(0xF0B88546));
+        bitNumberSlider.setColour(bitNumberSlider.textBoxOutlineColourId, juce::Colour(0xF0B88546));*/
+        
         LandF.setColour(Slider::textBoxOutlineColourId, juce::Colour(0xF0B88546));
 
+        presenceSlider.setColour(presenceSlider.thumbColourId, juce::Colour(0xFFB4D989));
+
+        /*gainSlider.setColour(gainSlider.thumbColourId, juce::Colour(0xE0FFD2BB));
+        bitNumberSlider.setColour(bitNumberSlider.thumbColourId, juce::Colour(0xE0FFD2BB));*/
+        
+        LandF.setColour(Slider::thumbColourId, juce::Colour(0xE0FFD2BB));
+
+        /*gainSlider.setColour(gainSlider.trackColourId, juce::Colour(0x80E5B8A1));
+        bitNumberSlider.setColour(bitNumberSlider.trackColourId, juce::Colour(0x80E5B8A1));*/
+        
+        LandF.setColour(Slider::trackColourId, juce::Colour(0x80E5B8A1));
+        
         gainSlider.setLookAndFeel(&LandF);
         bitNumberSlider.setLookAndFeel(&LandF);
     }

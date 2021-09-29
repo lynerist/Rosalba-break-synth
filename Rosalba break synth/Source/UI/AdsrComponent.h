@@ -12,6 +12,7 @@
 
 #include <JuceHeader.h>
 #include "../SynthVoice.h"
+#include "LookAndFeelCustomization.h"
 
 //==============================================================================
 
@@ -32,7 +33,8 @@ private:
     juce::Slider sustainSlider;
     juce::Slider releaseSlider;
 
-    LookAndFeel_V4 LandF;
+    //LookAndFeel_V4 LandF;
+    LookAndFeelCustomization LandF;
 
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> attackAttachment;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> decayAttachment;

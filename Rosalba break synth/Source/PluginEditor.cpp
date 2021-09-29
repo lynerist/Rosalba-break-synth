@@ -21,6 +21,7 @@ RosalbabreaksynthAudioProcessorEditor::RosalbabreaksynthAudioProcessorEditor (Ro
 
 RosalbabreaksynthAudioProcessorEditor::~RosalbabreaksynthAudioProcessorEditor()
 {
+    this->setLookAndFeel(nullptr);
 }
 
 //==============================================================================
@@ -28,10 +29,9 @@ void RosalbabreaksynthAudioProcessorEditor::paint (juce::Graphics& g)
 {
 
     g.fillAll(juce::Colours::black);
-
-    LookAndFeel::setDefaultLookAndFeel(&LandF);
+    
     g.setColour(juce::Colour(0xFFB4D989));
-    g.setFont(0.7 U);
+    g.setFont(LookAndFeelCustomization::getCustomFont().withHeight(0.7 U));
     g.drawText("Waveform A", 20 U, 5 U, 4 U, 2 U, juce::Justification::centred);
     g.drawText("Waveform B", 25 U, 5 U, 4 U, 2 U, juce::Justification::centred);
     g.drawText("Shift Octave", 30 U, 5 U, 4 U, 2 U, juce::Justification::centred);

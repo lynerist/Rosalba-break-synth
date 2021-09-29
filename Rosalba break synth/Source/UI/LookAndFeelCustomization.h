@@ -15,8 +15,14 @@
 class LookAndFeelCustomization : public juce::LookAndFeel_V4 {
 
 public:
-    LookAndFeelCustomization() {}
-    ~LookAndFeelCustomization() {}
+    LookAndFeelCustomization() {
+    
+        //LookAndFeelCustomization::setDefaultLookAndFeel(this);
+    }
+    ~LookAndFeelCustomization() {
+    
+        //LookAndFeelCustomization::setDefaultLookAndFeel(nullptr);
+    }
 
     void LookAndFeelCustomization::drawPopupMenuItem(juce::Graphics& g, const juce::Rectangle<int>& area,
         const bool isSeparator, const bool isActive,
@@ -33,7 +39,8 @@ public:
             g.setColour(juce::Colours::black);
         }
 
-        g.setFont(16);
+        g.setFont(LookAndFeelCustomization::getCustomFont().withHeight(0.7 U)); //aggiunto io
+        //g.setFont(16);
         g.drawFittedText(text, area.reduced(6, 0), juce::Justification::centred, 1);    //left
     }
 
@@ -53,10 +60,25 @@ public:
     }
 
     //font embedding
+    static const Font getCustomFont()
+    {
+        static auto typeface = Typeface::createSystemTypefaceFor(BinaryData::AvaraBold_ttf, BinaryData::AvaraBold_ttfSize);
+        return Font(typeface);
+    }
+
     Typeface::Ptr getTypefaceForFont(const Font& f) override
     {
-        static Typeface::Ptr myFont = Typeface::createSystemTypefaceFor(BinaryData::AvaraBold_ttf, BinaryData::AvaraBold_ttfSize);
-        return myFont;
+        return getCustomFont().getTypeface();
+    }
+    
+    Font getComboBoxFont(ComboBox& cBox) override
+    {
+        return getCustomFont().withHeight(0.7 U);
+    }
+
+    Font getLabelFont(Label& l) override
+    {
+        return getCustomFont().withHeight(0.7 U);
     }
 
 };

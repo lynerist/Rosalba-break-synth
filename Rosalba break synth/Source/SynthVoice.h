@@ -16,24 +16,23 @@
 #include "Data/OscData.h"
 
 const auto DEFAULT_GAIN = 0.5f;
-const auto DEFAULTBITNUMBER = 24;
+const auto DEFAULTBITNUMBER = 24.00f;
 const auto DEFAULT_PRESENCE = 0.5f;
 const auto MIN_FREQ = 0;
 const auto MAX_FREQ = 4000;
 
-const auto DEFAULT_ATTACK = 0.1f;
-const auto DEFAULT_DECAY = 0.1f;
-const auto DEFAULT_SUSTAIN = 1.0f;
-const auto DEFAULT_RELEASE = 0.4f;
+const auto DEFAULT_ATTACK = 0.01f;
+const auto DEFAULT_DECAY = 0.01f;
+const auto DEFAULT_SUSTAIN = 1.00f;
+const auto DEFAULT_RELEASE = 0.04f;
 const auto MIN_ADSR = 0.1f;
 const auto MAX_ADSR = 3.0f;
 
-const auto INTERVAL_VALUE = 0.1f;
-const auto INTERVAL_VALUE_TWO_DECIMALS = 0.01f;
+const auto INTERVAL_VALUE = 0.01f;
 
 
 /* ==============================================================================
-    U Ë un'unit‡ di misura customizzata che permette di rendere il plugin facilmente scalabile.
+    U √® un'unit√† di misura customizzata che permette di rendere il plugin facilmente scalabile.
     Modificando il valore della costante u si possono rimpicciolire in scala tutte le sue componenti.
     1 unit = 25 pixel
  ============================================================================== */
@@ -41,8 +40,8 @@ const int u = 25;
 #define U *u
 
 
-class SynthVoice : public juce::SynthesiserVoice {
-
+class SynthVoice : public juce::SynthesiserVoice
+{
 public:
     bool canPlaySound(juce::SynthesiserSound* sound) override;
     void startNote(int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition) override;
@@ -52,7 +51,7 @@ public:
     void prepareToPlay(double sampleRate, int samplesPerBlock, int outputChannels);
     void renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override;
 
-    void update(const float attack, const float decay, const float sustain, const float release, const float gain, const float presence, const int newBitNumber, const int highfreq, const int lowfreq);
+    void update(const float attack, const float decay, const float sustain, const float release, const float gain, const float presence, const float newBitNumber, const int highfreq, const int lowfreq);
     OscData& getOscillator(int id){ return id-1?osc2:osc1; };
 
 private:
@@ -67,7 +66,7 @@ private:
 
     juce::dsp::Gain<float> gain;
 
-    int bitNumber;
+    float bitNumber;
 
     bool isPrepared { false };
 };

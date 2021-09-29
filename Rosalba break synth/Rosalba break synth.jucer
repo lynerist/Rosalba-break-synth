@@ -17,7 +17,7 @@
       <FILE id="MvCOfC" name="SynthVoice.cpp" compile="1" resource="0" file="Source/SynthVoice.cpp"/>
       <FILE id="KIDQ3T" name="SynthVoice.h" compile="0" resource="0" file="Source/SynthVoice.h"/>
       <FILE id="hPJvwT" name="SynthSound.h" compile="0" resource="0" file="Source/SynthSound.h"/>
-      <GROUP id="{6C70C4D0-173D-7EF9-B319-DB22579849C6}" name="Data">
+      <GROUP id="{6C70C4D0-173D-7EF9-B319-DB22579849C6}" name="DSP">
         <FILE id="CW5bXn" name="AdsrData.h" compile="0" resource="0" file="Source/Data/AdsrData.h"/>
         <FILE id="SirZsn" name="OscData.h" compile="0" resource="0" file="Source/Data/OscData.h"/>
         <FILE id="N2f9rW" name="OscData.cpp" compile="1" resource="0" file="Source/Data/OscData.cpp"/>

@@ -14,8 +14,8 @@
 #define DEFAULTOCTAVE 2
 #define PI juce::MathConstants<float>::pi
 
-class OscData : public juce::dsp::Oscillator<float> {
-    
+class OscData : public juce::dsp::Oscillator<float>
+{    
 public:
     OscData();
     void prepareToPlay(juce::dsp::ProcessSpec& spec);
@@ -28,4 +28,5 @@ public:
 private:
     double shiftOctave;
     float  presence;
+
 };

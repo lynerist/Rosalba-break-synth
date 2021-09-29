@@ -62,10 +62,11 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
     isPrepared = true;
 }
 
-void SynthVoice::update(const float attack, const float decay, const float sustain, const float release, const float newGain, const float newPresence, const int newBitNumber, const int highfreq, const int lowfreq) {
+void SynthVoice::update(const float attack, const float decay, const float sustain, const float release, const float newGain, const float newPresence, const float newBitNumber, const int highfreq, const int lowfreq) {
 
     adsr.updateADSR(attack, decay, sustain, release);
-    gain.setGainLinear(newGain);
+    //gain.setGainLinear(newGain);
+    gain.setGainLinear(Decibels::decibelsToGain(newGain));
     osc1.setPresence(1.0f - newPresence);
     osc2.setPresence(newPresence);
     bitNumber = newBitNumber;
@@ -91,7 +92,7 @@ void SynthVoice::renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int sta
     
     adsr.applyEnvelopeToBuffer(synthBuffer, 0, synthBuffer.getNumSamples());
     
-    int quantizationSteps = exp2(bitNumber);
+    float quantizationSteps = exp2(bitNumber);
 
     for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel) {
 

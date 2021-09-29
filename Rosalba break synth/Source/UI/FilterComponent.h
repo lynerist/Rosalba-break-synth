@@ -59,6 +59,9 @@ public:
 
         filterSlider.setColour(filterSlider.thumbColourId, juce::Colour(0xFFB88546));
         filterSlider.setColour(filterSlider.trackColourId, juce::Colour(0xC094B969));
+
+        highpassFreq.setFont(LookAndFeelCustomization::getCustomFont().withHeight(0.7 U));
+        lowpassFreq.setFont(LookAndFeelCustomization::getCustomFont().withHeight(0.7 U));
     }
 
     void resized() override
