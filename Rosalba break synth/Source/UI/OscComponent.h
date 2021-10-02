@@ -29,7 +29,7 @@ private:
     juce::ComboBox oscWaveSelector;
     juce::ComboBox octaveSelector;
 
-    LookAndFeelCustomization LandF;
+    LookAndFeelCustomization lookAndFeel;
 
     std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> oscWaveSelectorAttachment;
     std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> octaveSelectorAttachment;

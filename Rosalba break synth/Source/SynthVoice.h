@@ -15,8 +15,8 @@
 #include "Data/AdsrData.h"
 #include "Data/OscData.h"
 
-const auto DEFAULT_GAIN = 0.5f;
-const auto DEFAULTBITNUMBER = 24.00f;
+const auto DEFAULT_GAIN = 0.00f;
+const auto DEFAULT_BITNUMBER = 24.00f;
 const auto DEFAULT_PRESENCE = 0.5f;
 const auto MIN_FREQ = 0;
 const auto MAX_FREQ = 4000;
@@ -40,7 +40,8 @@ const int u = 25;
 #define U *u
 
 
-class SynthVoice : public juce::SynthesiserVoice
+class SynthVoice : public juce::SynthesiserVoice,
+                   public AudioProcessorValueTreeState::Listener
 {
 public:
     bool canPlaySound(juce::SynthesiserSound* sound) override;
@@ -51,7 +52,9 @@ public:
     void prepareToPlay(double sampleRate, int samplesPerBlock, int outputChannels);
     void renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override;
 
-    void update(const float attack, const float decay, const float sustain, const float release, const float gain, const float presence, const float newBitNumber, const int highfreq, const int lowfreq);
+    void parameterChanged(const String& paramID, float newValue) override;
+
+    //void update(const float attack, const float decay, const float sustain, const float release, const float gain, const float presence, const float newBitNumber, const int highfreq, const int lowfreq);
     OscData& getOscillator(int id){ return id-1?osc2:osc1; };
 
 private:

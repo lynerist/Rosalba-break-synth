@@ -48,8 +48,9 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
     osc2.prepareToPlay(spec);
     gain.prepare(spec);
 
-    gain.setGainLinear(DEFAULT_GAIN);
-    bitNumber = DEFAULTBITNUMBER;
+    //gain.setGainLinear(DEFAULT_GAIN);
+    gain.setGainLinear(Decibels::decibelsToGain(DEFAULT_GAIN)); //sostituzione in decibel
+    bitNumber = DEFAULT_BITNUMBER;
 
     highpassFilter.prepare(spec);
     lowpassFilter.prepare(spec);
@@ -62,18 +63,18 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
     isPrepared = true;
 }
 
-void SynthVoice::update(const float attack, const float decay, const float sustain, const float release, const float newGain, const float newPresence, const float newBitNumber, const int highfreq, const int lowfreq) {
-
-    adsr.updateADSR(attack, decay, sustain, release);
-    //gain.setGainLinear(newGain);
-    gain.setGainLinear(Decibels::decibelsToGain(newGain));
-    osc1.setPresence(1.0f - newPresence);
-    osc2.setPresence(newPresence);
-    bitNumber = newBitNumber;
-
-    highpassFilter.setCutoffFrequency(highfreq);
-    lowpassFilter.setCutoffFrequency(lowfreq);
-}
+//void SynthVoice::update(const float attack, const float decay, const float sustain, const float release, const float newGain, const float newPresence, const float newBitNumber, const int highfreq, const int lowfreq) {
+//
+//    adsr.updateADSR(attack, decay, sustain, release);
+//    //gain.setGainLinear(newGain);
+//    gain.setGainLinear(Decibels::decibelsToGain(newGain));
+//    osc1.setPresence(1.0f - newPresence);
+//    osc2.setPresence(newPresence);
+//    bitNumber = newBitNumber;
+//
+//    highpassFilter.setCutoffFrequency(highfreq);
+//    lowpassFilter.setCutoffFrequency(lowfreq);
+//}
 
 void SynthVoice::renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples) {
 
@@ -116,3 +117,45 @@ void SynthVoice::renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int sta
             clearCurrentNote();
     }
 };
+
+
+void SynthVoice::parameterChanged(const String& paramID, float newValue)
+{
+    if (paramID == "OSC1WAVETYPE")
+        osc1.setWaveType(newValue);
+
+    if (paramID == "OSC2WAVETYPE")
+        osc2.setWaveType(newValue);
+
+    if (paramID == "OSC2OCTAVE")
+        osc2.setOctave(newValue);
+
+    if (paramID == "ATTACK")
+        adsr.updateADSRParam(newValue, 0);
+
+    if (paramID == "DECAY")
+        adsr.updateADSRParam(newValue, 1);
+
+    if (paramID == "SUSTAIN")
+        adsr.updateADSRParam(newValue, 2);
+    
+    if (paramID == "RELEASE")
+        adsr.updateADSRParam(newValue, 3);
+
+    if (paramID == "GAIN")
+        gain.setGainLinear(Decibels::decibelsToGain(newValue));
+    
+    if (paramID == "PRESENCE")
+        osc1.setPresence(1.0f - newValue);
+        osc2.setPresence(newValue);
+
+    if (paramID == "BITNUMBER")
+        bitNumber = newValue;
+
+    if (paramID == "HIGHFREQ")
+        highpassFilter.setCutoffFrequency(newValue);
+
+    if (paramID == "LOWFREQ")
+        lowpassFilter.setCutoffFrequency(newValue);;
+};
+

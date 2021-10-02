@@ -32,7 +32,7 @@ private:
 
     AnalyzerComponent& analyzer;
 
-    LookAndFeelCustomization LandF;
+    LookAndFeelCustomization lookAndFeel;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RosalbabreaksynthAudioProcessorEditor)
 };

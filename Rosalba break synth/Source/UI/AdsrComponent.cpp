@@ -50,30 +50,30 @@ void AdsrComponent::paint (juce::Graphics& g)
     sustainSlider.setColour(sustainSlider.thumbColourId, juce::Colour(0xFFB4D989));
     releaseSlider.setColour(releaseSlider.thumbColourId, juce::Colour(0xFFB4D989));*/
 
-    LandF.setColour(Slider::thumbColourId, juce::Colour(0xFFB4D989));
+    lookAndFeel.setColour(Slider::thumbColourId, juce::Colour(0xFFB4D989));
 
     /*attackSlider.setColour(attackSlider.trackColourId, juce::Colour(0x80B4D989));
     decaySlider.setColour(decaySlider.trackColourId, juce::Colour(0x80B4D989));
     sustainSlider.setColour(sustainSlider.trackColourId, juce::Colour(0x80B4D989));
     releaseSlider.setColour(releaseSlider.trackColourId, juce::Colour(0x80B4D989));*/
 
-    LandF.setColour(Slider::trackColourId, juce::Colour(0x80B4D989));
+    lookAndFeel.setColour(Slider::trackColourId, juce::Colour(0x80B4D989));
 
     /*attackSlider.setColour(attackSlider.textBoxOutlineColourId, juce::Colour(0xF0B88546));
     decaySlider.setColour(decaySlider.textBoxOutlineColourId, juce::Colour(0xF0B88546));
     sustainSlider.setColour(sustainSlider.textBoxOutlineColourId, juce::Colour(0xF0B88546));
     releaseSlider.setColour(releaseSlider.textBoxOutlineColourId, juce::Colour(0xF0B88546));*/
 
-    LandF.setColour(Slider::textBoxOutlineColourId, juce::Colour(0xF0B88546));
+    lookAndFeel.setColour(Slider::textBoxOutlineColourId, juce::Colour(0xF0B88546));
 
-    attackSlider.setLookAndFeel(&LandF);
-    decaySlider.setLookAndFeel(&LandF);
-    sustainSlider.setLookAndFeel(&LandF);
-    releaseSlider.setLookAndFeel(&LandF);
+    attackSlider.setLookAndFeel(&lookAndFeel);
+    decaySlider.setLookAndFeel(&lookAndFeel);
+    sustainSlider.setLookAndFeel(&lookAndFeel);
+    releaseSlider.setLookAndFeel(&lookAndFeel);
 
-    //LandF.setColour(Slider::thumbColourId, juce::Colour(0xFFB4D989));
-    //LandF.setColour(Slider::trackColourId, juce::Colour(0x80B4D989));
-    //LandF.setColour(Slider::textBoxOutlineColourId, juce::Colour(0xF0B88546));
+    //lookAndFeel.setColour(Slider::thumbColourId, juce::Colour(0xFFB4D989));
+    //lookAndFeel.setColour(Slider::trackColourId, juce::Colour(0x80B4D989));
+    //lookAndFeel.setColour(Slider::textBoxOutlineColourId, juce::Colour(0xF0B88546));
 
 }
 
