@@ -31,6 +31,11 @@ AdsrComponent::~AdsrComponent()
     decaySlider.setLookAndFeel(nullptr);
     sustainSlider.setLookAndFeel(nullptr);
     releaseSlider.setLookAndFeel(nullptr);
+
+    /*attackAttachment.reset();
+    decayAttachment.reset();
+    sustainAttachment.reset();
+    releaseAttachment.reset();*/
 }
 
 void AdsrComponent::paint (juce::Graphics& g)

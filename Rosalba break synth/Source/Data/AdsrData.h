@@ -31,18 +31,22 @@ public:
         {
         case 0:
             adsrParams.attack = newValue;
+            break;
         case 1:
             adsrParams.decay = newValue;
+            break;
         case 2:
             adsrParams.sustain = newValue;
+            break;
         case 3:
             adsrParams.release = newValue;
+            break;
         default:
-            //jassertfalse;
+            jassertfalse;
             break;
         }
 
-        setParameters(adsrParams);
+        setParameters(adsrParams);òòòòòòòòòòòòòò 
     }
 
 private:

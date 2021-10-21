@@ -15,9 +15,13 @@ bool SynthVoice::canPlaySound(juce::SynthesiserSound* sound) {
     return dynamic_cast<juce::SynthesiserSound*>(sound) != nullptr;
 }
 
-void SynthVoice::startNote(int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition) {
+void SynthVoice::startNote(int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition) 
+{
     osc1.setWaveFrequency(midiNoteNumber);
     osc2.setWaveFrequency(midiNoteNumber);
+
+    DBG("startNote:" << osc2.getFrequency());
+    
     adsr.noteOn();
 };
 
@@ -44,10 +48,20 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
     spec.sampleRate = sampleRate;
     spec.numChannels = outputChannels;
 
+    adsr.updateADSRParam(DEFAULT_ATTACK, 0);
+    adsr.updateADSRParam(DEFAULT_DECAY, 1);
+    adsr.updateADSRParam(DEFAULT_SUSTAIN, 2);
+    adsr.updateADSRParam(DEFAULT_RELEASE, 3);
+
     osc1.prepareToPlay(spec);
     osc2.prepareToPlay(spec);
+    osc1.setPresence(1.0f - DEFAULT_PRESENCE);
+    osc2.setPresence(DEFAULT_PRESENCE);
+    osc1.setWaveType(DEFAULT_OSC_TYPE);
+    osc2.setWaveType(DEFAULT_OSC_TYPE);
+    osc2.setOctave(DEFAULT_OCTAVE);
+    
     gain.prepare(spec);
-
     //gain.setGainLinear(DEFAULT_GAIN);
     gain.setGainLinear(Decibels::decibelsToGain(DEFAULT_GAIN)); //sostituzione in decibel
     bitNumber = DEFAULT_BITNUMBER;
@@ -59,7 +73,7 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
     highpassFilter.setCutoffFrequency(MIN_FREQ);
     lowpassFilter.setType(juce::dsp::StateVariableTPTFilterType::lowpass);
     lowpassFilter.setCutoffFrequency(MAX_FREQ);
-        
+
     isPrepared = true;
 }
 
@@ -156,6 +170,6 @@ void SynthVoice::parameterChanged(const String& paramID, float newValue)
         highpassFilter.setCutoffFrequency(newValue);
 
     if (paramID == "LOWFREQ")
-        lowpassFilter.setCutoffFrequency(newValue);;
+        lowpassFilter.setCutoffFrequency(newValue);
 };
 

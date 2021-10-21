@@ -20,7 +20,7 @@ RosalbabreaksynthAudioProcessor::RosalbabreaksynthAudioProcessor()
     synth.addVoice(new SynthVoice());
     synth.addVoice(new SynthVoice());*/
 
-   /* for (int i = 0; i < synth.getNumVoices(); ++i) {
+    /*for (int i = 0; i < synth.getNumVoices(); ++i) {
         if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i))) {*/
 
             auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(0));
@@ -36,7 +36,7 @@ RosalbabreaksynthAudioProcessor::RosalbabreaksynthAudioProcessor()
             apvts.addParameterListener("DECAY", voice);
             apvts.addParameterListener("SUSTAIN", voice);
             apvts.addParameterListener("RELEASE", voice);
-    /*    }
+   /*     }
     }*/
 
 }
@@ -111,11 +111,11 @@ void RosalbabreaksynthAudioProcessor::prepareToPlay (double sampleRate, int samp
 {
     synth.setCurrentPlaybackSampleRate(sampleRate);
 
-    for (int i = 0; i < synth.getNumVoices(); i++) {
-
-        if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i))) {
-
-            voice->prepareToPlay(sampleRate, samplesPerBlock, getTotalNumOutputChannels());
+    for (int i = 0; i < synth.getNumVoices(); i++) 
+    {
+        if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i))) 
+        {
+            voice->prepareToPlay(sampleRate, samplesPerBlock, getTotalNumOutputChannels());     
         }
     }
 }
@@ -149,9 +149,17 @@ void RosalbabreaksynthAudioProcessor::processBlock (juce::AudioBuffer<float>& bu
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
-   
+
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
+
+    
+    for (int i = 0; i < synth.getNumVoices(); ++i) {
+        /*if auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i))) {
+
+        }*/
+        auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i));
+    }
 
     //for (int i = 0; i < synth.getNumVoices(); ++i) {
     //
@@ -174,7 +182,7 @@ void RosalbabreaksynthAudioProcessor::processBlock (juce::AudioBuffer<float>& bu
     //        auto& lowFreq = *apvts.getRawParameterValue("LOWFREQ");
 
     //        //ADSR
-    //        auto& attack = *apvts.getRawParameterValue("ATTACK");
+    //        auto& attack = *apvts.getRawParameterValue("ATTACK"); 
     //        auto& decay = *apvts.getRawParameterValue("DECAY");
     //        auto& sustain = *apvts.getRawParameterValue("SUSTAIN");
     //        auto& release = *apvts.getRawParameterValue("RELEASE");
@@ -186,10 +194,10 @@ void RosalbabreaksynthAudioProcessor::processBlock (juce::AudioBuffer<float>& bu
     //    }
     //}
 
-    synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
+    synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples()); 
     
     //Serve per visualizzare lo spettro
-    analyzer.getNextAudioBlock(buffer, 0);
+    analyzer.getNextAudioBlock(buffer, 0);    
 }
                                 
 //==============================================================================

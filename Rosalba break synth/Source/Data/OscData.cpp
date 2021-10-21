@@ -12,7 +12,7 @@
 
 //OscData::OscData()
 //: Oscillator() {
-//    setOctave(DEFAULTOCTAVE);
+//    setOctave(DEFAULT_OCTAVE);
 //}
 
 //void OscData::prepareToPlay(juce::dsp::ProcessSpec& spec) {
