@@ -9,6 +9,7 @@
 */
 
 #include "SynthVoice.h"
+#include <iostream>
 
 bool SynthVoice::canPlaySound(juce::SynthesiserSound* sound) {
 
@@ -20,8 +21,7 @@ void SynthVoice::startNote(int midiNoteNumber, float velocity, juce::Synthesiser
     osc1.setWaveFrequency(midiNoteNumber);
     osc2.setWaveFrequency(midiNoteNumber);
 
-    DBG("startNote:" << osc2.getFrequency());
-    
+    DBG("startNote: osc2 " << osc2.getFrequency() << "osc1 " << osc1.getFrequency());
     adsr.noteOn();
 };
 

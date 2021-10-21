@@ -20,10 +20,8 @@ RosalbabreaksynthAudioProcessor::RosalbabreaksynthAudioProcessor()
     synth.addVoice(new SynthVoice());
     synth.addVoice(new SynthVoice());*/
 
-    /*for (int i = 0; i < synth.getNumVoices(); ++i) {
-        if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i))) {*/
-
-            auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(0));
+    for (int i = 0; i < synth.getNumVoices(); ++i) {
+        if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i))) {
             apvts.addParameterListener("OSC1WAVETYPE", voice);
             apvts.addParameterListener("OSC2WAVETYPE", voice);
             apvts.addParameterListener("OSC2OCTAVE", voice);
@@ -36,9 +34,8 @@ RosalbabreaksynthAudioProcessor::RosalbabreaksynthAudioProcessor()
             apvts.addParameterListener("DECAY", voice);
             apvts.addParameterListener("SUSTAIN", voice);
             apvts.addParameterListener("RELEASE", voice);
-   /*     }
-    }*/
-
+        }
+    }
 }
 
 RosalbabreaksynthAudioProcessor::~RosalbabreaksynthAudioProcessor()
@@ -160,39 +157,6 @@ void RosalbabreaksynthAudioProcessor::processBlock (juce::AudioBuffer<float>& bu
         }*/
         auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i));
     }
-
-    //for (int i = 0; i < synth.getNumVoices(); ++i) {
-    //
-    //    if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i))) {
-    //        
-    //        //Oscillator 1
-    //        auto& osc1WaveChoice = *apvts.getRawParameterValue("OSC1WAVETYPE");
-    //        
-    //        //Oscillator 2
-    //        auto& osc2WaveChoice = *apvts.getRawParameterValue("OSC2WAVETYPE");
-    //        auto& osc2OctaveChoice = *apvts.getRawParameterValue("OSC2OCTAVE");
-
-    //        //Gain Presence BitNumber
-    //        auto& gain = *apvts.getRawParameterValue("GAIN");
-    //        auto& presence = *apvts.getRawParameterValue("PRESENCE");
-    //        auto& bitNumber = *apvts.getRawParameterValue("BITNUMBER");
-
-    //        //Filter
-    //        auto& highFreq = *apvts.getRawParameterValue("HIGHFREQ");
-    //        auto& lowFreq = *apvts.getRawParameterValue("LOWFREQ");
-
-    //        //ADSR
-    //        auto& attack = *apvts.getRawParameterValue("ATTACK"); 
-    //        auto& decay = *apvts.getRawParameterValue("DECAY");
-    //        auto& sustain = *apvts.getRawParameterValue("SUSTAIN");
-    //        auto& release = *apvts.getRawParameterValue("RELEASE");
-    //        
-    //        //voice->update(attack.load(), decay.load(), sustain.load(), release.load(), gain.load(), presence.load(), bitNumber.load(), highFreq.load(), lowFreq.load());
-    //        voice->getOscillator(1).setWaveType(osc1WaveChoice);
-    //        voice->getOscillator(2).setWaveType(osc2WaveChoice);
-    //        voice->getOscillator(2).setOctave(osc2OctaveChoice);
-    //    }
-    //}
 
     synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples()); 
     

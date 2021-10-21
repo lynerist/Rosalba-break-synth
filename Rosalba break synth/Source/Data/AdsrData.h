@@ -46,7 +46,7 @@ public:
             break;
         }
 
-        setParameters(adsrParams);òòòòòòòòòòòòòò 
+        setParameters(adsrParams);
     }
 
 private:

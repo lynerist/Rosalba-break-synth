@@ -3,7 +3,7 @@
 
     TwoValueSliderAttachment.h
     Created: 11 Dec 2017 7:35:47pm
-    Author:  Nikolay Tsenkov (Con nostre modifiche per togliere elementi deprecati)
+    Author:  Nikolay Tsenkov (Con modifiche di Leonardo Albani per eliminare elementi deprecati)
 
   ==============================================================================
 */
