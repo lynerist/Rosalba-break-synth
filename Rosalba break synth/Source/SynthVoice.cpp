@@ -21,7 +21,7 @@ void SynthVoice::startNote(int midiNoteNumber, float velocity, juce::Synthesiser
     osc1.setWaveFrequency(midiNoteNumber);
     osc2.setWaveFrequency(midiNoteNumber);
 
-    DBG("startNote: osc2 " << osc2.getFrequency() << "osc1 " << osc1.getFrequency());
+    DBG("startNote: osc2 " << osc2.getFrequency() << "; osc1 " << osc1.getFrequency());
     adsr.noteOn();
 };
 
@@ -39,7 +39,9 @@ void SynthVoice::controllerMoved(int controllerNumber, int newControllerValue) {
 void SynthVoice::pitchWheelMoved(int newPitchWheelValue) {
 }
 
-void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outputChannels) {
+void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outputChannels) 
+{
+    DBG("ECCOCIIIIIII AMO");
 
     adsr.setSampleRate(sampleRate);
 
@@ -105,6 +107,8 @@ void SynthVoice::renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int sta
     osc1.getNextAudioBlock(audioBlock);
     osc2.getNextAudioBlock(audioBlock);
     
+    DBG("renderNextBlock: osc2 " << osc2.getFrequency() << "; osc1 " << osc1.getFrequency());
+    
     adsr.applyEnvelopeToBuffer(synthBuffer, 0, synthBuffer.getNumSamples());
     
     float quantizationSteps = exp2(bitNumber);
@@ -136,40 +140,69 @@ void SynthVoice::renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int sta
 void SynthVoice::parameterChanged(const String& paramID, float newValue)
 {
     if (paramID == "OSC1WAVETYPE")
+    {
         osc1.setWaveType(newValue);
+    }
 
     if (paramID == "OSC2WAVETYPE")
+    {
         osc2.setWaveType(newValue);
+    }
 
     if (paramID == "OSC2OCTAVE")
+    {
         osc2.setOctave(newValue);
+    }
 
     if (paramID == "ATTACK")
+    {
         adsr.updateADSRParam(newValue, 0);
+    }
 
     if (paramID == "DECAY")
+    {
         adsr.updateADSRParam(newValue, 1);
+    }
 
     if (paramID == "SUSTAIN")
+    {
         adsr.updateADSRParam(newValue, 2);
+    }   
     
     if (paramID == "RELEASE")
+    {
         adsr.updateADSRParam(newValue, 3);
+    }
 
     if (paramID == "GAIN")
+    {
         gain.setGainLinear(Decibels::decibelsToGain(newValue));
+    }
     
     if (paramID == "PRESENCE")
+    {
         osc1.setPresence(1.0f - newValue);
         osc2.setPresence(newValue);
+        DBG("parameterChanged p " << newValue);
+        DBG("osc1 pres " << osc1.getPresence());
+        DBG("osc2 pres " << osc2.getPresence());
+        DBG("osc1 again pres " << osc1.getPresence());
+    }
+        
 
     if (paramID == "BITNUMBER")
+    {
         bitNumber = newValue;
+    }
 
     if (paramID == "HIGHFREQ")
+    {
         highpassFilter.setCutoffFrequency(newValue);
+    }
 
     if (paramID == "LOWFREQ")
+    {
         lowpassFilter.setCutoffFrequency(newValue);
+    }
 };
 

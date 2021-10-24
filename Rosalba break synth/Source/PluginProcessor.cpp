@@ -156,6 +156,8 @@ void RosalbabreaksynthAudioProcessor::processBlock (juce::AudioBuffer<float>& bu
 
         }*/
         auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i));
+
+        //DBG("processBlock: " << voice->getCurrentlyPlayingNote());
     }
 
     synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples()); 
@@ -204,7 +206,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout RosalbabreaksynthAudioProces
 
     //GAIN, PRESENCE and BITNUMBER
     params.push_back(std::make_unique<juce::AudioParameterFloat>("GAIN", "Gain", juce::NormalisableRange<float>{-48.00f, 6.00f, INTERVAL_VALUE}, DEFAULT_GAIN));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("PRESENCE", "Presence", juce::NormalisableRange<float>{0.0f, 1.0f}, DEFAULT_PRESENCE));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("PRESENCE", "Presence", juce::NormalisableRange<float>{0.0f, 1.0f, INTERVAL_VALUE}, DEFAULT_PRESENCE));
     //params.push_back(std::make_unique<juce::AudioParameterChoice>("BITNUMBER", "Bit Number", juce::StringArray{"1","2","3","4","5","6","7","8","9","10","12","16","24"}, 12));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("BITNUMBER", "Bit Number", juce::NormalisableRange<float>{1.00f, 24.00f, INTERVAL_VALUE}, DEFAULT_BITNUMBER)); //check again
     //FILTER
