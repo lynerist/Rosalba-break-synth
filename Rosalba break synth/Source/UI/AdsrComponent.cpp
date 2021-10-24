@@ -27,15 +27,17 @@ AdsrComponent::AdsrComponent(juce::AudioProcessorValueTreeState& apvts)
 
 AdsrComponent::~AdsrComponent()
 {
-    attackSlider.setLookAndFeel(nullptr);
-    decaySlider.setLookAndFeel(nullptr);
-    sustainSlider.setLookAndFeel(nullptr);
-    releaseSlider.setLookAndFeel(nullptr);
-
     /*attackAttachment.reset();
     decayAttachment.reset();
     sustainAttachment.reset();
     releaseAttachment.reset();*/
+
+
+    attackSlider.setLookAndFeel(nullptr);
+    decaySlider.setLookAndFeel(nullptr);
+    sustainSlider.setLookAndFeel(nullptr);
+    releaseSlider.setLookAndFeel(nullptr);
+    
 }
 
 void AdsrComponent::paint (juce::Graphics& g)

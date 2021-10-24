@@ -13,7 +13,6 @@
 
 #define DEFAULT_OCTAVE 2
 #define DEFAULT_OSC_TYPE 0
-#define DEFAULT_PRESENCE 0.5f
 #define PI juce::MathConstants<float>::pi
 
 class OscData : public juce::dsp::Oscillator<float>

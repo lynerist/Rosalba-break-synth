@@ -41,8 +41,6 @@ void SynthVoice::pitchWheelMoved(int newPitchWheelValue) {
 
 void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outputChannels) 
 {
-    DBG("ECCOCIIIIIII AMO");
-
     adsr.setSampleRate(sampleRate);
 
     juce::dsp::ProcessSpec spec;

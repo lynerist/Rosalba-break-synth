@@ -17,7 +17,7 @@
 
 const auto DEFAULT_GAIN = 0.00f;
 const auto DEFAULT_BITNUMBER = 24.00f;
-//const auto DEFAULT_PRESENCE = 0.5f;
+const auto DEFAULT_PRESENCE = 0.5f;
 const auto MIN_FREQ = 0;
 const auto MAX_FREQ = 4000;
 

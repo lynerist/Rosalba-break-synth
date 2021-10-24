@@ -45,6 +45,11 @@ public:
 
     ~GainComponent() override
     {
+        gainAttachment.reset();     //aggiunta
+        bitNumberAttachment.reset();        //aggiunta
+        presenceAttachment.reset();     //aggiunta
+  
+
         gainSlider.setLookAndFeel(nullptr);
         bitNumberSlider.setLookAndFeel(nullptr);
     }

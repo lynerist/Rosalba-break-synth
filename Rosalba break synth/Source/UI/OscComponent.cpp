@@ -33,6 +33,10 @@ OscComponent::OscComponent(juce::AudioProcessorValueTreeState& apvts, juce::Stri
 
 OscComponent::~OscComponent()
 {
+    oscWaveSelectorAttachment.reset();          //aggiunta
+    octaveSelectorAttachment.reset();           //aggiunta
+
+
     oscWaveSelector.setLookAndFeel(nullptr);
     octaveSelector.setLookAndFeel(nullptr);
 }
