@@ -208,7 +208,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout RosalbabreaksynthAudioProces
     params.push_back(std::make_unique<juce::AudioParameterFloat>("GAIN", "Gain", juce::NormalisableRange<float>{-48.00f, 6.00f, INTERVAL_VALUE}, DEFAULT_GAIN));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("PRESENCE", "Presence", juce::NormalisableRange<float>{0.0f, 1.0f, INTERVAL_VALUE}, DEFAULT_PRESENCE));
     //params.push_back(std::make_unique<juce::AudioParameterChoice>("BITNUMBER", "Bit Number", juce::StringArray{"1","2","3","4","5","6","7","8","9","10","12","16","24"}, 12));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("BITNUMBER", "Bit Number", juce::NormalisableRange<float>{1.00f, 24.00f, INTERVAL_VALUE}, DEFAULT_BITNUMBER)); //check again
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("BITNUMBER", "Bit Number", juce::NormalisableRange<float>{1.00f, 24.00f, INTERVAL_VALUE, 0.2f}, DEFAULT_BITNUMBER)); //check again
     //FILTER
     params.push_back(std::make_unique<juce::AudioParameterInt>("HIGHFREQ", "Highpass cutoff frequency", MIN_FREQ, MAX_FREQ, MIN_FREQ));
     params.push_back(std::make_unique<juce::AudioParameterInt>("LOWFREQ", "Lowpass cutoff frequency", MIN_FREQ, MAX_FREQ, MAX_FREQ));   
