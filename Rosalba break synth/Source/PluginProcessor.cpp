@@ -15,10 +15,11 @@ RosalbabreaksynthAudioProcessor::RosalbabreaksynthAudioProcessor()
 #endif
 {
     synth.addSound(new SynthSound());
+    
     synth.addVoice(new SynthVoice());
-    /*synth.addVoice(new SynthVoice());
     synth.addVoice(new SynthVoice());
-    synth.addVoice(new SynthVoice());*/
+    synth.addVoice(new SynthVoice());
+    synth.addVoice(new SynthVoice());
 
     for (int i = 0; i < synth.getNumVoices(); ++i) {
         if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i))) {
