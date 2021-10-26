@@ -152,14 +152,9 @@ void RosalbabreaksynthAudioProcessor::processBlock (juce::AudioBuffer<float>& bu
         buffer.clear (i, 0, buffer.getNumSamples());
 
     
-    for (int i = 0; i < synth.getNumVoices(); ++i) {
-        /*if auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i))) {
-
-        }*/
+   /* for (int i = 0; i < synth.getNumVoices(); ++i) {
         auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i));
-
-        //DBG("processBlock: " << voice->getCurrentlyPlayingNote());
-    }
+    }*/
 
     synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples()); 
     
@@ -209,6 +204,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout RosalbabreaksynthAudioProces
     params.push_back(std::make_unique<juce::AudioParameterFloat>("GAIN", "Gain", juce::NormalisableRange<float>{-48.00f, 6.00f, INTERVAL_VALUE, SKEW_FACTOR}, DEFAULT_GAIN));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("PRESENCE", "Presence", juce::NormalisableRange<float>{0.0f, 1.0f, INTERVAL_VALUE}, DEFAULT_PRESENCE));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("BITNUMBER", "Bit Number", juce::NormalisableRange<float>{1.00f, 24.00f, INTERVAL_VALUE, SKEW_FACTOR}, DEFAULT_BITNUMBER));
+    
     //FILTER
     params.push_back(std::make_unique<juce::AudioParameterInt>("HIGHFREQ", "Highpass cutoff frequency", MIN_FREQ, MAX_FREQ, MIN_FREQ));
     params.push_back(std::make_unique<juce::AudioParameterInt>("LOWFREQ", "Lowpass cutoff frequency", MIN_FREQ, MAX_FREQ, MAX_FREQ));   
