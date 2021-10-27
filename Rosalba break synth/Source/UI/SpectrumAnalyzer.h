@@ -14,6 +14,10 @@
 #include <JuceHeader.h>
 #include "../SynthVoice.h"
 
+const auto fftOrder = 11;
+const auto fftSize = 1 << fftOrder;
+const auto scopeSize = 512;
+
 //==============================================================================
 class AnalyzerComponent : public juce::Component,
     private juce::Timer
@@ -28,9 +32,7 @@ public:
         setSize(14 U, 7 U);
     }
 
-    ~AnalyzerComponent() override
-    {
-    }
+    ~AnalyzerComponent() override {}
 
     //==============================================================================
 
@@ -120,13 +122,6 @@ public:
                                   juce::jmap(scopeData[i],     0.0f, 1.0f, (float)height, 0.0f) });
         }
     }
-
-    enum
-    {
-        fftOrder = 11,             
-        fftSize = 1 << fftOrder,  
-        scopeSize = 512            
-    };
 
 private:
     juce::dsp::FFT forwardFFT;                     

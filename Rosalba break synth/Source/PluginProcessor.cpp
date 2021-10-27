@@ -151,11 +151,6 @@ void RosalbabreaksynthAudioProcessor::processBlock (juce::AudioBuffer<float>& bu
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    
-   /* for (int i = 0; i < synth.getNumVoices(); ++i) {
-        auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i));
-    }*/
-
     synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples()); 
     
     //Serve per visualizzare lo spettro

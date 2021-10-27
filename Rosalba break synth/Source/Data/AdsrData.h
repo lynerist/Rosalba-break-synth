@@ -15,16 +15,6 @@
 class AdsrData : public juce::ADSR
 {
 public:
-    /*void AdsrData::updateADSR(const float attack, const float decay, const float sustain, const float release) {
-
-        adsrParams.attack = attack;
-        adsrParams.decay = decay;
-        adsrParams.sustain = sustain;
-        adsrParams.release = release;
-
-        setParameters(adsrParams);
-    }*/
-
     void AdsrData::updateADSRParam(const float newValue, int adsrID)
     {
         switch (adsrID)

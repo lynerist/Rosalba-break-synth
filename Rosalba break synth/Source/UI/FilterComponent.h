@@ -49,9 +49,7 @@ public:
         addAndMakeVisible(lowpassFreq);
     }
 
-    ~FilterComponent() override
-    {
-    }
+    ~FilterComponent() override {}
 
     void paint (juce::Graphics& g) override
     {

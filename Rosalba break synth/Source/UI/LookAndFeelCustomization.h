@@ -15,14 +15,8 @@
 class LookAndFeelCustomization : public juce::LookAndFeel_V4 {
 
 public:
-    LookAndFeelCustomization() {
-    
-        //LookAndFeelCustomization::setDefaultLookAndFeel(this);
-    }
-    ~LookAndFeelCustomization() {
-    
-        //LookAndFeelCustomization::setDefaultLookAndFeel(nullptr);
-    }
+    LookAndFeelCustomization() {}
+    ~LookAndFeelCustomization() {}
 
     void LookAndFeelCustomization::drawPopupMenuItem(juce::Graphics& g, const juce::Rectangle<int>& area,
         const bool isSeparator, const bool isActive,
@@ -39,9 +33,8 @@ public:
             g.setColour(juce::Colours::black);
         }
 
-        g.setFont(LookAndFeelCustomization::getCustomFont().withHeight(0.7 U)); //aggiunto io
-        //g.setFont(16);
-        g.drawFittedText(text, area.reduced(6, 0), juce::Justification::centred, 1);    //left
+        g.setFont(LookAndFeelCustomization::getCustomFont().withHeight(0.7 U));
+        g.drawFittedText(text, area.reduced(6, 0), juce::Justification::centred, 1);
     }
 
     void LookAndFeelCustomization::drawPopupMenuBackground(juce::Graphics& g, int width, int height)

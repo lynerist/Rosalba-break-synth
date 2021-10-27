@@ -45,9 +45,9 @@ public:
 
     ~GainComponent() override
     {
-        gainAttachment.reset();     //aggiunta
-        bitNumberAttachment.reset();        //aggiunta
-        presenceAttachment.reset();     //aggiunta
+        gainAttachment.reset();     
+        bitNumberAttachment.reset();      
+        presenceAttachment.reset(); 
   
 
         gainSlider.setLookAndFeel(nullptr);
@@ -66,25 +66,13 @@ public:
         g.drawText("bit", Rectangle<int>(11.5 U, 10.55 U, 3 U, 2 U), juce::Justification::centred);
         g.drawText("Gain", Rectangle<int>(0.5 U, 11.5 U, 3 U, 3 U), juce::Justification::centred);
         
-        /*gainSlider.setColour(gainSlider.textBoxTextColourId, juce::Colours::whitesmoke);
-        bitNumberSlider.setColour(bitNumberSlider.textBoxTextColourId, juce::Colours::whitesmoke);*/
-        
         lookAndFeel.setColour(Slider::textBoxTextColourId, juce::Colours::whitesmoke);
-
-        /*gainSlider.setColour(gainSlider.textBoxOutlineColourId, juce::Colour(0xF0B88546));
-        bitNumberSlider.setColour(bitNumberSlider.textBoxOutlineColourId, juce::Colour(0xF0B88546));*/
         
         lookAndFeel.setColour(Slider::textBoxOutlineColourId, juce::Colour(0xF0B88546));
 
         presenceSlider.setColour(presenceSlider.thumbColourId, juce::Colour(0xFFB4D989));
-
-        /*gainSlider.setColour(gainSlider.thumbColourId, juce::Colour(0xE0FFD2BB));
-        bitNumberSlider.setColour(bitNumberSlider.thumbColourId, juce::Colour(0xE0FFD2BB));*/
-        
-        lookAndFeel.setColour(Slider::thumbColourId, juce::Colour(0xE0FFD2BB));
-
-        /*gainSlider.setColour(gainSlider.trackColourId, juce::Colour(0x80E5B8A1));
-        bitNumberSlider.setColour(bitNumberSlider.trackColourId, juce::Colour(0x80E5B8A1));*/
+        gainSlider.setColour(gainSlider.thumbColourId, juce::Colour(0xE0FFD2BB));
+        bitNumberSlider.setColour(bitNumberSlider.thumbColourId, juce::Colour(0xE0FFD2BB));
         
         lookAndFeel.setColour(Slider::trackColourId, juce::Colour(0x80E5B8A1));
         

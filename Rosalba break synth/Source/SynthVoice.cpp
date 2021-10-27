@@ -62,8 +62,7 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
     osc2.setOctave(DEFAULT_OCTAVE);
     
     gain.prepare(spec);
-    //gain.setGainLinear(DEFAULT_GAIN);
-    gain.setGainLinear(Decibels::decibelsToGain(DEFAULT_GAIN)); //sostituzione in decibel
+    gain.setGainLinear(Decibels::decibelsToGain(DEFAULT_GAIN));
     bitNumber = DEFAULT_BITNUMBER;
 
     highpassFilter.prepare(spec);
@@ -76,19 +75,6 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
 
     isPrepared = true;
 }
-
-//void SynthVoice::update(const float attack, const float decay, const float sustain, const float release, const float newGain, const float newPresence, const float newBitNumber, const int highfreq, const int lowfreq) {
-//
-//    adsr.updateADSR(attack, decay, sustain, release);
-//    //gain.setGainLinear(newGain);
-//    gain.setGainLinear(Decibels::decibelsToGain(newGain));
-//    osc1.setPresence(1.0f - newPresence);
-//    osc2.setPresence(newPresence);
-//    bitNumber = newBitNumber;
-//
-//    highpassFilter.setCutoffFrequency(highfreq);
-//    lowpassFilter.setCutoffFrequency(lowfreq);
-//}
 
 void SynthVoice::renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples) {
 

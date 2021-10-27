@@ -14,7 +14,6 @@
 //==============================================================================
 OscComponent::OscComponent(juce::AudioProcessorValueTreeState& apvts, juce::String waveSelectorId, juce::String octaveSelectorId)
 {
-    //LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
     juce::StringArray choices{ "Sine", "Saw", "Square", "Plus" };
     oscWaveSelector.addItemList(choices, 1);
     addAndMakeVisible(oscWaveSelector);
@@ -33,8 +32,8 @@ OscComponent::OscComponent(juce::AudioProcessorValueTreeState& apvts, juce::Stri
 
 OscComponent::~OscComponent()
 {
-    oscWaveSelectorAttachment.reset();          //aggiunta
-    octaveSelectorAttachment.reset();           //aggiunta
+    oscWaveSelectorAttachment.reset();          
+    octaveSelectorAttachment.reset();           
 
 
     oscWaveSelector.setLookAndFeel(nullptr);

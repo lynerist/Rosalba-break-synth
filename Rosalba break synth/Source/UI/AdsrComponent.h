@@ -33,7 +33,6 @@ private:
     juce::Slider sustainSlider;
     juce::Slider releaseSlider;
 
-    //LookAndFeel_V4 lookAndFeel;
     LookAndFeelCustomization lookAndFeel;
 
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> attackAttachment;

@@ -21,8 +21,6 @@ const auto DEFAULT_PRESENCE = 0.5f;
 const auto MIN_FREQ = 0;
 const auto MAX_FREQ = 4000;
 
-//const auto DEFAULT_OSC_TYPE = 0;
-
 const auto DEFAULT_ATTACK = 0.01f;
 const auto DEFAULT_DECAY = 0.01f;
 const auto DEFAULT_SUSTAIN = 1.00f;
@@ -56,9 +54,6 @@ public:
     void renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override;
 
     void parameterChanged(const String& paramID, float newValue) override;
-
-    //void update(const float attack, const float decay, const float sustain, const float release, const float gain, const float presence, const float newBitNumber, const int highfreq, const int lowfreq);
-    OscData& getOscillator(int id){ return id-1?osc2:osc1; };
    
 private:
     AdsrData adsr;
