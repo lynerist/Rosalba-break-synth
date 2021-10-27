@@ -171,10 +171,17 @@ juce::AudioProcessorEditor* RosalbabreaksynthAudioProcessor::createEditor()
 //==============================================================================
 void RosalbabreaksynthAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
+    auto state = apvts.copyState();
+    std::unique_ptr<XmlElement> xml(state.createXml());
+    copyXmlToBinary(*xml, destData);
 }
 
 void RosalbabreaksynthAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
+    std::unique_ptr<XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
+    if (xmlState.get() != nullptr)
+        if (xmlState->hasTagName(apvts.state.getType()))
+            apvts.replaceState(ValueTree::fromXml(*xmlState));
 }
 
 //==============================================================================
