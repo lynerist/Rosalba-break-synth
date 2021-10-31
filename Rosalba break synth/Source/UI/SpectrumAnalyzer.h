@@ -123,6 +123,7 @@ public:
         }
     }
 
+
 private:
     juce::dsp::FFT forwardFFT;                     
     juce::dsp::WindowingFunction<float> window;    

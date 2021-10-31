@@ -170,7 +170,6 @@ void SynthVoice::parameterChanged(const String& paramID, float newValue)
         DBG("parameterChanged p " << newValue);
         DBG("osc1 pres " << osc1.getPresence());
         DBG("osc2 pres " << osc2.getPresence());
-        DBG("osc1 again pres " << osc1.getPresence());
     }
         
 

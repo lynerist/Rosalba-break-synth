@@ -74,4 +74,6 @@ public:
         return getCustomFont().withHeight(0.7 U);
     }
 
+private:
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(LookAndFeelCustomization)
 };

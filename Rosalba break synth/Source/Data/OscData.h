@@ -31,32 +31,7 @@ public:
         p è una variabile complementare fra i due oscillatori, la somma delle due è sempre 1
         serve a definire la presenza di uno rispetto all'altro.
     ============================================================================== */
-    //void OscData::setWaveType(const int choice) {   
-    //    switch (choice) 
-    //    {
-    //    case 0: //sine wave
-    //        DBG("pronto polizia");
-    //        initialise([p = presence](float x) {return std::sin(x) * p; });
-    //        waveChoice = 0;
-    //        break;
-    //    case 1: //saw tooth
-    //        initialise([p = presence](float x) { return (x / PI) * p; });
-    //        waveChoice = 1;
-    //        break;
-    //    case 2: //square
-    //        initialise([p = presence](float x) { return (x < 0.0f ? -1.0f : 1.0f) * p; });
-    //        waveChoice = 2;
-    //        break;
-    //    case 3: //plus
-    //        initialise([p = presence](float x) { return (x < 0.0f ? (x / PI) + std::sin(x) : PI / x - std::cos(x)) * p; });
-    //        waveChoice = 3;
-    //        break;
-    //    default:
-    //        jassertfalse;
-    //        break;
-    //    }
-    //}
-
+    
     //-----------------
     void OscData::setWave() {
         switch (waveChoice)
@@ -93,6 +68,7 @@ public:
     }
 
     void OscData::getNextAudioBlock(juce::dsp::AudioBlock<float>& block) {
+        DBG("getNextAudioBlock samples : " << block.getNumSamples());
         process(juce::dsp::ProcessContextReplacing<float>(block));
     }
 
@@ -132,4 +108,6 @@ private:
     double shiftOctave;
     float presence;
     int waveChoice;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscData)   //aggiunta
 };

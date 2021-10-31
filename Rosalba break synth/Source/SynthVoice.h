@@ -29,7 +29,8 @@ const auto MIN_ADSR = 0.10f;
 const auto MAX_ADSR = 3.00f;
 
 const auto INTERVAL_VALUE = 0.01f;
-const auto SKEW_FACTOR = 0.4f;
+const auto SKEW_FACTOR_BITNUMBER = 0.4f;
+const auto SKEW_FACTOR_GAIN = 3.0f;
 
 
 /* ==============================================================================
