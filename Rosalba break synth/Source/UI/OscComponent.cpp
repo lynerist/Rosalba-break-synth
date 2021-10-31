@@ -35,7 +35,6 @@ OscComponent::~OscComponent()
     oscWaveSelectorAttachment.reset();          
     octaveSelectorAttachment.reset();           
 
-
     oscWaveSelector.setLookAndFeel(nullptr);
     octaveSelector.setLookAndFeel(nullptr);
 }

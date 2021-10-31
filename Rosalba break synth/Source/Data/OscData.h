@@ -31,8 +31,6 @@ public:
         p è una variabile complementare fra i due oscillatori, la somma delle due è sempre 1
         serve a definire la presenza di uno rispetto all'altro.
     ============================================================================== */
-    
-    //-----------------
     void OscData::setWave() {
         switch (waveChoice)
         {
@@ -60,7 +58,6 @@ public:
         waveChoice = choice;
         setWave();
     }
-    //-----------------
     
     void OscData::setWaveFrequency(const int midiNoteNumber) {
         setFrequency(juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber) * (double)shiftOctave);
@@ -71,7 +68,6 @@ public:
         DBG("getNextAudioBlock samples : " << block.getNumSamples());
         process(juce::dsp::ProcessContextReplacing<float>(block));
     }
-
 
     /* ==============================================================================
         2^(choice-2) = 1/4 * 2^choice (-1 serve a correggere l'ottava ottenendo A4 = 440Hz)
@@ -109,5 +105,5 @@ private:
     float presence;
     int waveChoice;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscData)   //aggiunta
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscData)
 };
