@@ -21,7 +21,7 @@ void SynthVoice::startNote(int midiNoteNumber, float velocity, juce::Synthesiser
     osc1.setWaveFrequency(midiNoteNumber);
     osc2.setWaveFrequency(midiNoteNumber);
 
-    DBG("startNote: osc2 " << osc2.getFrequency() << "; osc1 " << osc1.getFrequency());
+    //DBG("startNote: osc2 " << osc2.getFrequency() << "; osc1 " << osc1.getFrequency());
     adsr.noteOn();
 };
 
@@ -55,8 +55,13 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
 
     osc1.prepareToPlay(spec);
     osc2.prepareToPlay(spec);
-    osc1.setPresence(1.0f - DEFAULT_PRESENCE);
-    osc2.setPresence(DEFAULT_PRESENCE);
+    /*osc1.prepareToPlay(sampleRate);
+    osc2.prepareToPlay(sampleRate);*/
+
+    /*osc1.setPresence(1.0f - DEFAULT_PRESENCE);
+    osc2.setPresence(DEFAULT_PRESENCE);*/
+    presence1 = presence2 = presenceOld1 = presenceOld2 = sqrt(0.5f);   //CHECK MEGLIO
+
     osc1.setWaveType(DEFAULT_OSC_TYPE);
     osc2.setWaveType(DEFAULT_OSC_TYPE);
     osc2.setOctave(DEFAULT_OCTAVE);
@@ -86,12 +91,28 @@ void SynthVoice::renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int sta
     synthBuffer.setSize(outputBuffer.getNumChannels(), numSamples, false, false, true);
     synthBuffer.clear();
 
+    synthBuffer2.setSize(outputBuffer.getNumChannels(), numSamples, false, false, true);
+    synthBuffer2.clear();
+
     juce::dsp::AudioBlock<float> audioBlock{ synthBuffer };
+    juce::dsp::AudioBlock<float> audioBlock2{ synthBuffer2 };
 
     osc1.getNextAudioBlock(audioBlock);
-    osc2.getNextAudioBlock(audioBlock);
+    osc2.getNextAudioBlock(audioBlock2);
     
-    DBG("renderNextBlock: osc2 " << osc2.getFrequency() << "; osc1 " << osc1.getFrequency());
+    DBG("synthBuffer: " << synthBuffer.getNumSamples());
+    DBG("synthBuffer2: " << synthBuffer2.getNumSamples());
+
+    /*osc1.getNextAudioBlock(synthBuffer, numSamples);
+    osc2.getNextAudioBlock(synthBuffer2, numSamples);*/
+    synthBuffer.applyGainRamp(0, numSamples, presenceOld1, presence1);
+
+    for (int ch = synthBuffer.getNumChannels(); --ch > 0;)
+    {
+        synthBuffer.addFromWithRamp(ch, 0, synthBuffer2.getReadPointer(ch), numSamples, presenceOld2, presence2);
+    }
+    
+    //DBG("renderNextBlock: osc2 " << osc2.getFrequency() << "; osc1 " << osc1.getFrequency());
     
     adsr.applyEnvelopeToBuffer(synthBuffer, 0, synthBuffer.getNumSamples());
     
@@ -165,11 +186,12 @@ void SynthVoice::parameterChanged(const String& paramID, float newValue)
     
     if (paramID == "PRESENCE")
     {
-        osc1.setPresence(1.0f - newValue);
+        setPresence(newValue);
+        /*osc1.setPresence(1.0f - newValue);
         osc2.setPresence(newValue);
         DBG("parameterChanged p " << newValue);
         DBG("osc1 pres " << osc1.getPresence());
-        DBG("osc2 pres " << osc2.getPresence());
+        DBG("osc2 pres " << osc2.getPresence());*/
     }
         
 
@@ -189,3 +211,11 @@ void SynthVoice::parameterChanged(const String& paramID, float newValue)
     }
 };
 
+void SynthVoice::setPresence(float newValue)
+{
+    presenceOld1 = presence1;
+    presenceOld2 = presence2;
+
+    presence1 = sqrt(1.0f - newValue);
+    presence2 = sqrt(newValue);
+}

@@ -31,21 +31,42 @@ public:
         p è una variabile complementare fra i due oscillatori, la somma delle due è sempre 1
         serve a definire la presenza di uno rispetto all'altro.
     ============================================================================== */
+    //void OscData::setWave() {
+    //    switch (waveChoice)
+    //    {
+    //    case 0: //sine wave
+    //        DBG("pronto polizia");
+    //        initialise([p = presence](float x) {return std::sin(x) * p; });
+    //        break;
+    //    case 1: //saw tooth
+    //        initialise([p = presence](float x) { return (x / PI) * p; });
+    //        break;
+    //    case 2: //square
+    //        initialise([p = presence](float x) { return (x < 0.0f ? -1.0f : 1.0f) * p; });
+    //        break;
+    //    case 3: //plus
+    //        initialise([p = presence](float x) { return (x < 0.0f ? (x / PI) + std::sin(x) : PI / x - std::cos(x)) * p; });
+    //        break;
+    //    default:
+    //        jassertfalse;
+    //        break;
+    //    }
+    //}
+
     void OscData::setWave() {
         switch (waveChoice)
         {
         case 0: //sine wave
-            DBG("pronto polizia");
-            initialise([p = presence](float x) {return std::sin(x) * p; });
+            initialise([](float x) {return std::sin(x); });
             break;
         case 1: //saw tooth
-            initialise([p = presence](float x) { return (x / PI) * p; });
+            initialise([](float x) { return (x / PI); });
             break;
         case 2: //square
-            initialise([p = presence](float x) { return (x < 0.0f ? -1.0f : 1.0f) * p; });
+            initialise([](float x) { return (x < 0.0f ? -1.0f : 1.0f); });
             break;
         case 3: //plus
-            initialise([p = presence](float x) { return (x < 0.0f ? (x / PI) + std::sin(x) : PI / x - std::cos(x)) * p; });
+            initialise([](float x) { return (x < 0.0f ? (x / PI) + std::sin(x) : PI / x - std::cos(x)); });
             break;
         default:
             jassertfalse;
@@ -82,28 +103,135 @@ public:
         shiftOctave = exp2(choice - 2 - 1);
         DBG("shiftOctave ");
     }
-    
-    void OscData::setPresence(float value) {
-        presence = value;
-        DBG("presence " << presence);
-        setWave();
-    }
 
     //debug
     double OscData::getOctave() {
         return shiftOctave;
     }
 
-    float OscData::getPresence()
+    /*float OscData::getPresence()
     {
         return presence;
-    }
+    }*/
     //fine debug
 
 private:
     double shiftOctave;
-    float presence;
-    int waveChoice;
+    int waveChoice;  
+
+    bool setWaveAvailable = true;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscData)
 };
+
+
+//class OscData
+//{
+//public:
+//	OscData()
+//	{
+//		//frequency.setCurrentAndTargetValue(DEFAULT_RATE);
+//		setOctave(DEFAULT_OCTAVE);
+//	}
+//
+//	~OscData() {};
+//
+//	void prepareToPlay(double sr)
+//	{
+//		sampleRate = sr;
+//		//frequency.reset(sr, RATE_SMTH);
+//	}
+//
+//	void getNextAudioBlock(AudioBuffer<float>& buffer, const int numSamples)
+//	{
+//		const auto numChannels = buffer.getNumChannels();
+//		auto** bufferData = buffer.getArrayOfWritePointers();
+//
+//		for (int smp = 0; smp < numSamples; ++smp)
+//		{
+//			const float sampleValue = getNextAudioSample();
+//
+//			for (int ch = 0; ch < numChannels; ++ch) 
+//			{
+//				bufferData[ch][smp] = sampleValue;
+//			}
+//		}
+//	}
+//
+//	float getNextAudioSample()
+//	{
+//		float sampleValue;
+//
+//		switch (waveChoice)
+//		{
+//		case 0: // Sine
+//			sampleValue = sin(2.0f * float_Pi * normalizedPhaseValue);
+//			break;
+//		case 1: // Sawtooth crescente(per abbassare il pitch)
+//			sampleValue = 2.0f * normalizedPhaseValue - 1.0f;
+//			break;
+//		case 2: // Square
+//			sampleValue = 0.0f;	//provvisorio
+//			break;
+//		case 3: // Plus
+//			sampleValue = 0.0f;	//provvisorio
+//			break;
+//		default:
+//			sampleValue = 0.0f;
+//		}
+//
+//		const float phaseIncrement = frequency.getNextValue() / sampleRate;
+//
+//		normalizedPhaseValue += phaseIncrement; // + delta su uno dei canali se stereo
+//		normalizedPhaseValue -= static_cast<int>(normalizedPhaseValue);
+//
+//		return sampleValue;
+//	}
+//
+//	void OscData::setWaveFrequency(const int midiNoteNumber) {
+//		frequency.setCurrentAndTargetValue(juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber) * (double)shiftOctave);
+//		DBG("setWaveFrequency: " << juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber) * (double)shiftOctave);
+//	}
+//
+//	/*void OscData::setPresence(float value) {
+//		if (presence != value) {
+//		    presence = value;
+//		    DBG("presence " << presence);
+//		}
+//	}*/
+//
+//	void OscData::setWaveType(const int choice)
+//	{
+//		waveChoice = choice;
+//	}
+//
+//	void OscData::setOctave(const int choice) {
+//		shiftOctave = exp2(choice - 2 - 1);
+//		DBG("shiftOctave ");
+//	}
+//
+//	//debug
+//    double OscData::getOctave() {
+//        return shiftOctave;
+//    }
+//
+//    float OscData::getPresence()
+//    {
+//        return presence;
+//    }
+//
+//	SmoothedValue<float, ValueSmoothingTypes::Multiplicative> OscData::getFrequency()
+//	{
+//		return frequency;
+//	}
+//    //fine debug
+//
+//private:
+//	int waveChoice;
+//	double sampleRate;
+//	float normalizedPhaseValue = 0.0f;
+//	SmoothedValue<float, ValueSmoothingTypes::Multiplicative> frequency;
+//	double shiftOctave;
+//
+//	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscData)
+//};

@@ -55,10 +55,15 @@ public:
     void renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override;
 
     void parameterChanged(const String& paramID, float newValue) override;
-   
+    
+    void setPresence(float newValue);
+
 private:
     AdsrData adsr;
     juce::AudioBuffer<float> synthBuffer;
+    juce::AudioBuffer<float> synthBuffer2;
+
+    float presenceOld1, presenceOld2, presence1, presence2;
 
     OscData osc1;
     OscData osc2;
