@@ -57,6 +57,7 @@ public:
     void parameterChanged(const String& paramID, float newValue) override;
     
     void setPresence(float newValue);
+    float setGain(float processedSample);
 
 private:
     AdsrData adsr;
@@ -64,6 +65,7 @@ private:
     juce::AudioBuffer<float> synthBuffer2;
 
     float presenceOld1, presenceOld2, presence1, presence2;
+    bool applySmooth;
 
     OscData osc1;
     OscData osc2;
@@ -72,6 +74,8 @@ private:
     juce::dsp::StateVariableTPTFilter<float> lowpassFilter;
 
     juce::dsp::Gain<float> gain;
+    /*float smoothedGain;
+    float smoothedGainOld;*/
 
     float bitNumber;
 

@@ -68,6 +68,8 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
     
     gain.prepare(spec);
     gain.setGainLinear(Decibels::decibelsToGain(DEFAULT_GAIN));
+    //smoothedGainOld = smoothedGain = DEFAULT_GAIN;
+    
     bitNumber = DEFAULT_BITNUMBER;
 
     highpassFilter.prepare(spec);
@@ -93,27 +95,53 @@ void SynthVoice::renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int sta
 
     synthBuffer2.setSize(outputBuffer.getNumChannels(), numSamples, false, false, true);
     synthBuffer2.clear();
+    
+    DBG("RENDERNEXTBLOCK");
+    DBG("synthBuffer: " << synthBuffer.getNumSamples());
+    DBG("synthBuffer2: " << synthBuffer2.getNumSamples()); 
+    DBG("synthBuffer: " << synthBuffer.getNumChannels()); 
+    DBG("synthBuffer2: " << synthBuffer2.getNumChannels()); 
 
     juce::dsp::AudioBlock<float> audioBlock{ synthBuffer };
     juce::dsp::AudioBlock<float> audioBlock2{ synthBuffer2 };
+    
+    DBG("AudioBlock: " << audioBlock.getNumSamples());
+    DBG("AudioBlock2: " << audioBlock2.getNumSamples());    
 
     osc1.getNextAudioBlock(audioBlock);
+    //osc2.getNextAudioBlock(audioBlock);
     osc2.getNextAudioBlock(audioBlock2);
-    
-    DBG("synthBuffer: " << synthBuffer.getNumSamples());
-    DBG("synthBuffer2: " << synthBuffer2.getNumSamples());
+
+    DBG("startSample: " << startSample);
+    DBG("numSamples: " << numSamples);
 
     /*osc1.getNextAudioBlock(synthBuffer, numSamples);
     osc2.getNextAudioBlock(synthBuffer2, numSamples);*/
-    synthBuffer.applyGainRamp(0, numSamples, presenceOld1, presence1);
 
-    for (int ch = synthBuffer.getNumChannels(); --ch > 0;)
+    if (applySmooth)
     {
-        synthBuffer.addFromWithRamp(ch, 0, synthBuffer2.getReadPointer(ch), numSamples, presenceOld2, presence2);
+        synthBuffer.applyGainRamp(0, synthBuffer.getNumSamples(), presenceOld1, presence1);
+    
+        //for (int ch = 0; ch < synthBuffer.getNumChannels(); ++ch)
+    
+        for (int ch = synthBuffer.getNumChannels(); --ch >= 0;)
+        {
+            DBG("channel " << ch);
+            synthBuffer.addFromWithRamp(ch, 0, synthBuffer2.getReadPointer(ch), synthBuffer.getNumSamples(), presenceOld2, presence2);
+        }
+
+        applySmooth = false;
+    }
+    else 
+    {
+        synthBuffer.applyGain(presence1);
+
+        for (int ch = synthBuffer.getNumChannels(); --ch >= 0;)
+            synthBuffer.addFrom(ch, 0, synthBuffer2, ch, 0, synthBuffer.getNumSamples(), presence2);
     }
     
     //DBG("renderNextBlock: osc2 " << osc2.getFrequency() << "; osc1 " << osc1.getFrequency());
-    
+
     adsr.applyEnvelopeToBuffer(synthBuffer, 0, synthBuffer.getNumSamples());
     
     float quantizationSteps = exp2(bitNumber);
@@ -128,7 +156,7 @@ void SynthVoice::renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int sta
             processedSample = highpassFilter.processSample(channel, processedSample);
             processedSample = lowpassFilter.processSample(channel, processedSample);
 
-            //Gain
+            //Gain 
             processedSample = gain.processSample(processedSample);
 
             synthBuffer.setSample(channel, sample, processedSample);
@@ -139,6 +167,8 @@ void SynthVoice::renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int sta
         if (! adsr.isActive())
             clearCurrentNote();
     }
+
+    
 };
 
 
@@ -181,6 +211,7 @@ void SynthVoice::parameterChanged(const String& paramID, float newValue)
 
     if (paramID == "GAIN")
     {
+        //smoothedGain = newValue;
         gain.setGainLinear(Decibels::decibelsToGain(newValue));
     }
     
@@ -216,6 +247,38 @@ void SynthVoice::setPresence(float newValue)
     presenceOld1 = presence1;
     presenceOld2 = presence2;
 
+    DBG("presenceOld1: " << presenceOld1);
+    DBG("presenceOld2: " << presenceOld2);
+
     presence1 = sqrt(1.0f - newValue);
     presence2 = sqrt(newValue);
+
+    DBG("presence1: " << presence1);
+    DBG("presence2: " << presence2);
+
+    applySmooth = true;
 }
+
+
+//float SynthVoice::setGain(float processedSample)
+//{
+//    smoothedGain = Decibels::decibelsToGain(smoothedGain);
+//
+//    //auto* channelData = synthBuffer.getArrayOfWritePointers();
+//
+//    //if (abs(smoothedGain - smoothedGainOld) > 0.0001)
+//        /*for (int sample = 0; sample < synthBuffer.getNumSamples(); ++sample)
+//        {*/
+//    smoothedGainOld += 0.003f * (smoothedGain - smoothedGainOld);
+//    /*for (int channel = 0; channel < synthBuffer.getNumChannels(); ++channel)
+//    {*/
+//    //channelData[channel][sample] *= smoothedGainOld;
+//    processedSample *= smoothedGainOld;
+//    //}
+////}
+////else
+//    //synthBuffer.applyGain(smoothedGain);
+//
+//    smoothedGainOld = smoothedGain;
+//    return  processedSample;
+//}

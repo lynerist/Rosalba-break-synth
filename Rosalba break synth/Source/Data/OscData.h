@@ -56,7 +56,7 @@ public:
     void OscData::setWave() {
         switch (waveChoice)
         {
-        case 0: //sine wave
+        case 0: //sine
             initialise([](float x) {return std::sin(x); });
             break;
         case 1: //saw tooth
@@ -108,18 +108,11 @@ public:
     double OscData::getOctave() {
         return shiftOctave;
     }
-
-    /*float OscData::getPresence()
-    {
-        return presence;
-    }*/
     //fine debug
 
 private:
     double shiftOctave;
     int waveChoice;  
-
-    bool setWaveAvailable = true;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscData)
 };
