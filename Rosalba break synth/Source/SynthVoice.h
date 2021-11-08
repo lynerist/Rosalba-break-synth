@@ -57,7 +57,7 @@ public:
     void parameterChanged(const String& paramID, float newValue) override;
     
     void setPresence(float newValue);
-    float setGain(float processedSample);
+    //float setGain(float processedSample);
 
 private:
     AdsrData adsr;
@@ -74,8 +74,7 @@ private:
     juce::dsp::StateVariableTPTFilter<float> lowpassFilter;
 
     juce::dsp::Gain<float> gain;
-    /*float smoothedGain;
-    float smoothedGainOld;*/
+    //float smoothedGain, currentGain;
 
     float bitNumber;
 

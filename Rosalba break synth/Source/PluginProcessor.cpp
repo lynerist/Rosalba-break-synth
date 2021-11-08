@@ -153,7 +153,7 @@ void RosalbabreaksynthAudioProcessor::processBlock (juce::AudioBuffer<float>& bu
 
     synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples()); 
     
-    //Serve per visualizzare lo spettro
+    //spettro
     analyzer.getNextAudioBlock(buffer, 0);    
 }
                                 
