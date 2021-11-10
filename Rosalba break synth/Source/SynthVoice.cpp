@@ -55,16 +55,15 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
     osc1.prepareToPlay(spec);
     osc2.prepareToPlay(spec);
     
-    presence1 = presence2 = presenceOld1 = presenceOld2 = sqrt(0.5f);
+    presence1 = presence2 = presenceOld1 = presenceOld2 = sqrt(DEFAULT_PRESENCE);
 
     osc1.setWaveType(DEFAULT_OSC_TYPE);
     osc2.setWaveType(DEFAULT_OSC_TYPE);
     osc2.setOctave(DEFAULT_OCTAVE);
     
     gain.prepare(spec);
-    gain.setRampDurationSeconds(0.1);
+    gain.setRampDurationSeconds(0.09);
     gain.setGainLinear(Decibels::decibelsToGain(DEFAULT_GAIN));
-    //smoothedGain = currentGain = DEFAULT_GAIN;
     
     bitNumber = DEFAULT_BITNUMBER;
 
@@ -115,7 +114,9 @@ void SynthVoice::renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int sta
         synthBuffer.applyGain(presence1);
 
         for (int ch = synthBuffer.getNumChannels(); --ch >= 0;)
+        {
             synthBuffer.addFrom(ch, 0, synthBuffer2, ch, 0, synthBuffer.getNumSamples(), presence2);
+        }
     }
     
 
@@ -144,28 +145,6 @@ void SynthVoice::renderNextBlock(juce::AudioBuffer<float>& outputBuffer, int sta
         if (! adsr.isActive())
             clearCurrentNote();
     }
-
-
-    /*auto* channelData = synthBuffer.getArrayOfWritePointers();
-    
-    for (int sample = 0; sample < synthBuffer.getNumSamples(); ++sample)
-    {
-        smoothedGain += 0.003f * (currentGain - smoothedGain);
-        for (int channel = 0; channel < synthBuffer.getNumChannels(); ++channel)
-        {
-            channelData[channel][sample] *= smoothedGain;
-        }
-    }
-
-    smoothedGain = currentGain;
-    
-    for (int c = 0; c < synthBuffer.getNumChannels(); ++c)
-    {
-        for (int s = 0; s < synthBuffer.getNumSamples(); ++s)
-        {
-            outputBuffer.addFrom(c, startSample, synthBuffer, c, 0, numSamples);
-        }
-    }*/
 
 };
 
@@ -209,7 +188,6 @@ void SynthVoice::parameterChanged(const String& paramID, float newValue)
 
     if (paramID == "GAIN")
     {
-        //currentGain = newValue;
         gain.setGainLinear(Decibels::decibelsToGain(newValue));
     }
     
@@ -244,27 +222,3 @@ void SynthVoice::setPresence(float newValue)
 
     applySmooth = true;
 }
-
-
-//float SynthVoice::setGain(float processedSample)
-//{
-//    smoothedGain = Decibels::decibelsToGain(smoothedGain);
-//
-//    //auto* channelData = synthBuffer.getArrayOfWritePointers();
-//
-//    //if (abs(smoothedGain - smoothedGainOld) > 0.0001)
-//        /*for (int sample = 0; sample < synthBuffer.getNumSamples(); ++sample)
-//        {*/
-//    smoothedGainOld += 0.003f * (smoothedGain - smoothedGainOld);
-//    /*for (int channel = 0; channel < synthBuffer.getNumChannels(); ++channel)
-//    {*/
-//    //channelData[channel][sample] *= smoothedGainOld;
-//    processedSample *= smoothedGainOld;
-//    //}
-////}
-////else
-//    //synthBuffer.applyGain(smoothedGain);
-//
-//    smoothedGainOld = smoothedGain;
-//    return  processedSample;
-//}
