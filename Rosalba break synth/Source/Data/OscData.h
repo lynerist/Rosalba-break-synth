@@ -20,6 +20,7 @@ class OscData : public juce::dsp::Oscillator<float>
 public:
     OscData(): Oscillator()
     {
+        setWaveType(DEFAULT_OSC_TYPE);
         setOctave(DEFAULT_OCTAVE);
     }
     

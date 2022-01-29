@@ -25,12 +25,13 @@ const auto DEFAULT_ATTACK = 0.01f;
 const auto DEFAULT_DECAY = 0.01f;
 const auto DEFAULT_SUSTAIN = 1.00f;
 const auto DEFAULT_RELEASE = 0.04f;
-const auto MIN_ADSR = 0.10f;
-const auto MAX_ADSR = 3.00f;
+const auto MIN_ADSR = 0.00f;
+const auto MAX_ADSR = 10.00f;
 
 const auto INTERVAL_VALUE = 0.01f;
 const auto SKEW_FACTOR_BITNUMBER = 0.4f;
 const auto SKEW_FACTOR_GAIN = 3.0f;
+const auto SKEW_FACTOR_ADSR = 0.5f;
 
 
 /* ==============================================================================
@@ -46,6 +47,7 @@ class SynthVoice : public juce::SynthesiserVoice,
                    public AudioProcessorValueTreeState::Listener    
 {
 public:
+    SynthVoice();
     bool canPlaySound(juce::SynthesiserSound* sound) override;
     void startNote(int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition) override;
     void stopNote(float velocity, bool allowTailOff) override;
@@ -60,8 +62,8 @@ public:
 
 private:
     AdsrData adsr;
-    juce::AudioBuffer<float> synthBuffer;
-    juce::AudioBuffer<float> synthBuffer2;
+    AudioBuffer<float> synthBuffer;
+    AudioBuffer<float> synthBuffer2;
 
     float presenceOld1, presenceOld2, presence1, presence2;
     bool applySmooth;
@@ -69,12 +71,21 @@ private:
     OscData osc1;
     OscData osc2;
     
-    juce::dsp::StateVariableTPTFilter<float> highpassFilter;
-    juce::dsp::StateVariableTPTFilter<float> lowpassFilter;
+    dsp::StateVariableTPTFilter<float> highpassFilter;
+    dsp::StateVariableTPTFilter<float> lowpassFilter;
 
-    juce::dsp::Gain<float> gain;
+    dsp::Gain<float> gain;
   
     float bitNumber;
+
+    IIRFilter correctionFilter;
+    IIRFilter correctionFilter2;
+    IIRFilter correctionFilter3;
+    IIRFilter correctionFilter4;
+    IIRFilter correctionFilter5;
+    IIRFilter correctionFilter6;
+    IIRFilter correctionFilter7;
+    IIRFilter correctionFilter8;
 
     bool isPrepared { false };
 };

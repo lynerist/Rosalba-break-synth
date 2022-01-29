@@ -12,7 +12,7 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "../SynthVoice.h"
+//#include "../SynthVoice.h"
 
 const auto fftOrder = 11;
 const auto fftSize = 1 << fftOrder;
@@ -43,7 +43,7 @@ public:
         {
             auto* channelData = bufferToFill.getReadPointer(0, startSample);
 
-            for (auto i = 0; i < bufferToFill.getNumSamples(); ++i)
+            for (auto i = startSample; i < (bufferToFill.getNumSamples() + startSample); ++i)
                 pushNextSampleIntoFifo(channelData[i]);
         }
     }

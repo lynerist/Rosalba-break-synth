@@ -152,6 +152,9 @@ void RosalbabreaksynthAudioProcessor::processBlock (juce::AudioBuffer<float>& bu
         buffer.clear (i, 0, buffer.getNumSamples());
 
     synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples()); 
+
+    if (totalNumOutputChannels > 1)
+        buffer.copyFrom(1, 0, buffer, 0, 0, buffer.getNumSamples());
     
     //spettro
     analyzer.getNextAudioBlock(buffer, 0);    
@@ -212,10 +215,10 @@ juce::AudioProcessorValueTreeState::ParameterLayout RosalbabreaksynthAudioProces
     params.push_back(std::make_unique<juce::AudioParameterInt>("LOWFREQ", "Lowpass cutoff frequency", MIN_FREQ, MAX_FREQ, MAX_FREQ));   
 
     //ADSR
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("ATTACK", "Attack", juce::NormalisableRange<float>{MIN_ADSR, MAX_ADSR, INTERVAL_VALUE}, DEFAULT_ATTACK));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("DECAY", "Decay", juce::NormalisableRange<float>{MIN_ADSR, MAX_ADSR, INTERVAL_VALUE}, DEFAULT_DECAY));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("SUSTAIN", "Sustain", juce::NormalisableRange<float>{MIN_ADSR, 1.00f, INTERVAL_VALUE}, DEFAULT_SUSTAIN));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("RELEASE", "Release", juce::NormalisableRange<float>{MIN_ADSR, MAX_ADSR, INTERVAL_VALUE}, DEFAULT_RELEASE));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("ATTACK", "Attack", juce::NormalisableRange<float>{MIN_ADSR, MAX_ADSR, INTERVAL_VALUE, SKEW_FACTOR_ADSR}, DEFAULT_ATTACK));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("DECAY", "Decay", juce::NormalisableRange<float>{MIN_ADSR, MAX_ADSR, INTERVAL_VALUE, SKEW_FACTOR_ADSR}, DEFAULT_DECAY));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("SUSTAIN", "Sustain", juce::NormalisableRange<float>{MIN_ADSR, 1.00f, INTERVAL_VALUE, SKEW_FACTOR_ADSR}, DEFAULT_SUSTAIN));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("RELEASE", "Release", juce::NormalisableRange<float>{MIN_ADSR, MAX_ADSR, INTERVAL_VALUE, SKEW_FACTOR_ADSR}, DEFAULT_RELEASE));
     
     return { params.begin(), params.end() };
 }
